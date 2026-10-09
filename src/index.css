@@ -227,6 +227,12 @@ body {
 }
 
 /* ── STICKER ─────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(2deg); }
+  66%       { transform: translateY(-6px) rotate(-2deg); }
+}
+
 .sticker {
   animation: float 5s ease-in-out infinite;
   cursor: none;
@@ -243,6 +249,15 @@ body {
 .sticker:nth-child(3) { animation-delay: -3s; }
 
 /* ── MARQUEE WRAPPER ─────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-rev {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
 .marquee-wrap { overflow: hidden; }
 .animate-marquee     { animation: marquee     25s linear infinite; will-change: transform; }
 .animate-marquee-rev { animation: marquee-rev 25s linear infinite; will-change: transform; }
