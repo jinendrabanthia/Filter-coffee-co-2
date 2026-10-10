@@ -15,15 +15,36 @@
 /* ── BASE ────────────────────────────────────────── */
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  /* Promote scrolling to its own compositor layer */
+  -webkit-overflow-scrolling: touch;
+}
 
 body {
   background: #EAE9E6;
   color: #111111;
   font-family: 'SF Pro Display','SF Pro Text','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
   cursor: none;
   overflow-x: hidden;
+}
+
+/* Ensure all animated elements use GPU compositing */
+[data-framer-motion], .motion-div {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Reduce layout shifts on images */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  image-rendering: auto;
 }
 
 /* Restore normal cursor on touch devices */

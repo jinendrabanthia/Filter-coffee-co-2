@@ -15,7 +15,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/"         element={<HomePage />} />
         <Route path="/work"     element={<WorkPage />} />
-        <Route path="/work/:slug" element={<ProjectPage />} />
+        <Route path="/work/:slug" element={<WorkPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/gallery"  element={<GalleryPage />} />
         <Route path="/about"    element={<AboutPage />} />

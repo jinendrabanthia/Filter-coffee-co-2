@@ -3,11 +3,20 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
-  { label: 'Work',        sub: 'The Good Stuff',   to: '/work'     },
-  { label: 'Services',    sub: "What's Brewing?",   to: '/services' },
-  { label: 'Gallery',     sub: 'Visual Identity',   to: '/gallery'  },
-  { label: 'About Us',    sub: 'Our Blend',         to: '/about'    },
-  { label: 'Our Clients', sub: null,                to: '/clients'  },
+  { label: 'About',       to: '/about'    },
+  { 
+    label: 'Work',        
+    to: '/work',
+    subLinks: [
+      { label: 'Social Media', to: '/work/social-media' },
+      { label: '3D Animation', to: '/work/3d-animation' },
+      { label: 'CGI Animation', to: '/work/cgi-animation' },
+      { label: 'E-Commerce and Digital', to: '/work/ecommerce-digital' },
+      { label: 'Campaign Shoots', to: '/work/campaign-shoots' }
+    ]
+  },
+  { label: 'Our Clients', to: '/clients'  },
+  { label: 'Contact',     to: '/contact'  },
 ];
 
 const springConfig = { type: 'spring', stiffness: 340, damping: 28, mass: 0.8 };
@@ -143,34 +152,40 @@ export default function Navbar() {
               >
                 <ul className="flex items-center gap-7 lg:gap-9">
                   {links.map((l) => (
-                    <li key={l.to}>
+                    <li key={l.to} className="relative group/item">
                       <Link
                         to={l.to}
-                        className={`group flex flex-col items-center relative transition-opacity ${
+                        className={`flex flex-col items-center relative transition-opacity ${
                           location.pathname === l.to ? 'opacity-100 font-extrabold' : 'opacity-85 hover:opacity-100'
                         }`}
                       >
-                        <span className="text-[0.72rem] font-sans font-bold text-brand-navy tracking-[0.18em] uppercase transition-colors group-hover:text-brand-yellow leading-tight">
+                        <span className="text-[0.72rem] font-sans font-bold text-brand-navy tracking-[0.18em] uppercase transition-colors group-hover/item:text-brand-yellow leading-tight">
                           {l.label}
+                          {l.subLinks && (
+                            <span className="ml-1 text-[0.6rem] opacity-50">▾</span>
+                          )}
                         </span>
-                        {l.sub && (
-                          <span className="text-[0.58rem] text-brand-navy/45 mt-[1px] font-serif italic leading-tight">
-                            {l.sub}
-                          </span>
-                        )}
                       </Link>
+                      {l.subLinks && (
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-5 opacity-0 -translate-y-2 pointer-events-none group-hover/item:opacity-100 group-hover/item:translate-y-0 group-hover/item:pointer-events-auto transition-all duration-200 ease-out">
+                          <div className="bg-white/97 backdrop-blur-xl rounded-2xl shadow-2xl border border-black/6 py-4 px-6 min-w-[220px] flex flex-col gap-[2px]">
+                            {l.subLinks.map((sub) => (
+                              <Link
+                                key={sub.to}
+                                to={sub.to}
+                                className="text-[0.72rem] font-semibold text-black/60 hover:text-black hover:bg-black/5 transition-all whitespace-nowrap tracking-[0.08em] uppercase px-3 py-2.5 rounded-lg"
+                              >
+                                {sub.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>
 
-                {/* CTA */}
-                <Link
-                  to="/contact"
-                  className="mag-btn inline-flex items-center justify-center bg-[#1a1a1a] text-white text-[0.68rem] font-bold tracking-[0.18em] uppercase px-6 py-2.5 rounded-full overflow-hidden shadow-md shrink-0 transition-transform hover:scale-105 active:scale-95"
-                  style={{ borderRadius: '50px' }}
-                >
-                  <span>Grab a Coffee</span>
-                </Link>
+
               </motion.div>
             )}
           </AnimatePresence>
@@ -224,21 +239,30 @@ export default function Navbar() {
               }}
             >
               {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  className={`text-lg font-semibold text-black border-b border-black/8 pb-3.5 transition-colors
-                    ${location.pathname === l.to ? 'opacity-100 font-bold' : 'opacity-70'}`}
-                >
-                  {l.label}
-                </Link>
+                <div key={l.to} className="flex flex-col border-b border-black/8 pb-3.5">
+                  <Link
+                    to={l.to}
+                    className={`text-lg font-semibold text-black transition-colors
+                      ${location.pathname === l.to ? 'opacity-100 font-bold' : 'opacity-70'}`}
+                  >
+                    {l.label}
+                  </Link>
+                  {l.subLinks && (
+                    <div className="flex flex-col gap-4 mt-4 pl-4 border-l-[1.5px] border-black/10">
+                      {l.subLinks.map((sub) => (
+                        <Link
+                          key={sub.to}
+                          to={sub.to}
+                          className="text-[0.8rem] tracking-wide font-semibold text-black/60 transition-colors uppercase"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
-              <Link
-                to="/contact"
-                className="mag-btn bg-[#1a1a1a] text-white text-xs font-bold tracking-widest uppercase px-6 py-3.5 text-center mt-2 rounded-full shadow-md"
-              >
-                <span>Grab a Coffee</span>
-              </Link>
+
             </motion.div>
           )}
         </AnimatePresence>

@@ -1,104 +1,88 @@
 import { Link } from 'react-router-dom';
-import FoldText from './FoldText';
 
 export default function Footer() {
   const links = [
-    { to: '/work', label: 'The Good Stuff' },
-    { to: '/services', label: "What's Brewing?" },
-    { to: '/about', label: 'Our Blend' },
+    { to: '/about',   label: 'About'       },
+    { to: '/contact', label: 'Contact'     },
+    { to: '/work',    label: 'Work'        },
     { to: '/clients', label: 'Our Clients' },
-    { to: '/contact', label: 'Grab a Coffee' },
+  ];
+
+  const socials = [
+    { label: 'LinkedIn', href: '#', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    )},
+    { label: 'Instagram', href: '#', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    )},
+    { label: 'YouTube', href: '#', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+    )},
+    { label: 'Facebook', href: '#', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    )},
   ];
 
   return (
-    <footer className="bg-white/90 backdrop-blur-lg border-t border-black/10 relative z-10">
-      {/* Big CTA strip with glassmorphism */}
-      <div className="border-b border-black/10 overflow-hidden py-16 px-8 md:px-12
-        flex items-center justify-between gap-8 flex-wrap glass-panel">
-        <div className="text-[clamp(1.6rem,3vw,2.8rem)] tracking-tight">
-          <FoldText
-            text="Still on the fence?"
-            splitBy="char"
-            hinge="top"
-            trigger="scroll"
-            duration={0.65}
-            delay={0.3}
-            stagger={0.035}
-            ease="power3.out"
-            color="#000000"
-            fontSize="inherit"
-            fontWeight={900}
-          />
-          <br />
-          <FoldText
-            text="Let's change that."
-            splitBy="char"
-            hinge="top"
-            trigger="scroll"
-            duration={0.65}
-            delay={0.8}
-            stagger={0.035}
-            ease="power3.out"
-            color="#888888"
-            fontSize="inherit"
-            fontWeight={200}
-            className="italic"
-          />
-        </div>
-        <Link to="/contact"
-          className="mag-btn border border-black bg-black text-white text-[0.72rem] font-black
-            tracking-widest uppercase px-10 py-4 cursor-none shrink-0 rounded-full shadow-lg">
-          <span>GRAB A COFFEE</span>
-          <span className="ml-2">→</span>
-        </Link>
+    <footer
+      style={{ fontFamily: "'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" }}
+      className="bg-black text-white relative z-10"
+    >
+      {/* Big wordmark */}
+      <div className="overflow-hidden px-4 md:px-8 pt-16 pb-8 select-none">
+        <p
+          className="font-black leading-none tracking-tight text-white w-full text-center"
+          style={{
+            fontSize: 'clamp(4rem, 16vw, 18rem)',
+            fontWeight: 900,
+            letterSpacing: '-0.02em',
+            lineHeight: 0.88,
+          }}
+        >
+          FILTER COFFEE CO.
+        </p>
       </div>
 
-      <div className="max-w-[1360px] mx-auto px-8 md:px-12 pt-16 pb-10">
-        <div className="grid md:grid-cols-3 gap-12 mb-14">
-          <div>
-            <Link to="/" className="text-3xl font-black tracking-widest block mb-3 text-black hover:opacity-60 transition-opacity">FILTER COFFEE CO.</Link>
-            <p className="text-smoke text-sm italic font-medium">We make brands addictive.</p>
-          </div>
-          <nav className="flex flex-col gap-3">
-            {links.map(l => (
-              <Link key={l.to} to={l.to}
-                className="text-[0.78rem] text-smoke font-medium hover:text-black transition-colors cursor-none w-fit">
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-          <div>
-            <p className="text-[0.62rem] font-bold tracking-widest uppercase text-smoke mb-4">Find us on</p>
-            <div className="flex gap-3">
-              {['IG', 'LI', 'X'].map(s => (
-                <a key={s} href="#" aria-label={s}
-                  className="w-10 h-10 border border-black/15 glass-pill rounded-xl flex items-center justify-center
-                    text-[0.68rem] font-bold text-black hover:bg-black hover:text-white
-                    hover:border-black transition-all cursor-none shadow-sm">
-                  {s}
-                </a>
-              ))}
-            </div>
-          </div>
+      {/* Divider */}
+      <div className="border-t border-white/10 mx-6 md:mx-10" />
+
+      {/* Bottom bar */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-6 md:px-10 py-6">
+        {/* Socials */}
+        <div className="flex items-center gap-4">
+          {socials.map(s => (
+            <a
+              key={s.label}
+              href={s.href}
+              aria-label={s.label}
+              className="text-white/50 hover:text-white transition-colors duration-200"
+            >
+              {s.icon}
+            </a>
+          ))}
         </div>
 
-        <div className="border-t border-black/10 pt-8 flex flex-col gap-4">
-          <div className="flex flex-col md:flex-row justify-between gap-4">
-            <p className="text-[0.7rem] text-black/50 font-medium tracking-wide">
-              © 2026 Filter Coffee Co. All rights reserved.
-            </p>
-            <p className="text-[0.7rem] text-black/50 font-medium tracking-wide text-left md:text-right">
-              Crafted with creativity. Brewed to perfection. ☕
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row justify-between gap-4 pt-4 border-t border-black/5">
-            <p className="text-[0.65rem] text-black/40 font-medium tracking-wide">
-              Made by JINENDRA BANTHIA and ARNAB SHARMA
-            </p>
-            <p className="text-[0.65rem] text-black/40 font-medium tracking-wide text-left md:text-right">
-              Contact: +91 9124483008 | <a href="mailto:jinendra.banthia.iter@gmail.com" className="hover:text-black transition-colors underline">jinendra.banthia.iter@gmail.com</a>
-            </p>
-          </div>
+        {/* Nav links */}
+        <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          {links.map(l => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="text-[0.72rem] font-semibold tracking-widest uppercase text-white/50 hover:text-white transition-colors duration-200"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right copy */}
+        <div className="text-right">
+          <p className="text-[0.65rem] font-medium text-white/40 leading-snug">
+            Proudly created in India
+          </p>
+          <p className="text-[0.65rem] font-medium text-white/40 leading-snug">
+            All Rights Reserved. All Wrong Reserved.
+          </p>
         </div>
       </div>
     </footer>

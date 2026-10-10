@@ -1,7 +1,7 @@
 import Hero     from '../components/Hero';
 import Ticker   from '../components/Ticker';
 import Work     from '../components/Work';
-import Services from '../components/Services';
+
 import About    from '../components/About';
 import Team     from '../components/Team';
 import Contact  from '../components/Contact';
@@ -63,7 +63,6 @@ export default function HomePage() {
       <Ticker />
       <Blurb />
       <Work />
-      <Services />
       <About />
       <Team />
       <Contact />
