@@ -34,10 +34,26 @@ export default function Hero() {
       setVideoError(true);
     };
 
+    const handleEnded = () => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {});
+      }
+    };
+
     video.addEventListener('loadeddata', handleReady);
     video.addEventListener('canplay', handleReady);
     video.addEventListener('playing', handleReady);
+    video.addEventListener('ended', handleEnded);
     video.addEventListener('error', handleError);
+
+    // Keep video playing on tab re-focus
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Auto-play muted video with low-latency promise
     const playPromise = video.play();
@@ -58,7 +74,9 @@ export default function Hero() {
       video.removeEventListener('loadeddata', handleReady);
       video.removeEventListener('canplay', handleReady);
       video.removeEventListener('playing', handleReady);
+      video.removeEventListener('ended', handleEnded);
       video.removeEventListener('error', handleError);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
@@ -71,18 +89,6 @@ export default function Hero() {
     }
   };
 
-  const handleVideoClick = () => {
-    const video = videoRef.current;
-    if (video) {
-      if (video.paused) {
-        video.play().then(() => setIsPlaying(true)).catch(() => {});
-      } else {
-        video.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
-
   return (
     <section
       id="home"
@@ -90,7 +96,7 @@ export default function Hero() {
       style={{ backgroundColor: '#000000' }}
     >
       {/* Full landscape background video with instant poster image */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none" aria-hidden="true">
         {/* Instant high-res poster displayed at 0ms delay */}
         <img
           src="/videos/homepage/hero-poster.webp"
@@ -110,15 +116,21 @@ export default function Hero() {
           playsInline
           preload="auto"
           poster="/videos/homepage/hero-poster.webp"
-          className={`w-full h-full object-cover transition-opacity duration-700 ${
+          className={`w-full h-full object-cover pointer-events-none transition-opacity duration-700 ${
             videoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
-          onClick={handleVideoClick}
           onLoadedData={() => setVideoLoaded(true)}
           onCanPlay={() => setVideoLoaded(true)}
           onPlaying={() => {
             setVideoLoaded(true);
             setIsPlaying(true);
+          }}
+          onEnded={() => {
+            const video = videoRef.current;
+            if (video) {
+              video.currentTime = 0;
+              video.play().catch(() => {});
+            }
           }}
           onError={() => setVideoError(true)}
         >

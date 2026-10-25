@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import Services from '../components/Services';
-import Contact from '../components/Contact';
 import ScrollReveal from '../components/ScrollReveal';
 import BackgroundShapes from '../components/BackgroundShapes';
 
@@ -38,7 +37,6 @@ export default function ServicesPage() {
       </section>
 
       <Services hideHeader />
-      <Contact />
     </>
   );
 }

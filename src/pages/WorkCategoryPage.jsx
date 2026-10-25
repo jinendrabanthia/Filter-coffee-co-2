@@ -97,13 +97,13 @@ export default function WorkCategoryPage() {
             transition={{ duration: 0.6, delay: 0.35 }}
             className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end"
           >
-            <Link
-              to="/contact"
+            <a
+              href="mailto:hello@filtercoffeeco.in"
               className="mag-btn border border-black bg-black text-white text-[0.76rem] font-black tracking-widest uppercase px-10 py-4 rounded-full shadow-lg inline-flex"
             >
               <span>BRIEF THIS DISCIPLINE</span>
               <span className="ml-2">→</span>
-            </Link>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -366,13 +366,13 @@ export default function WorkCategoryPage() {
               </h3>
             </div>
             <div className="pt-6">
-              <Link
-                to="/contact"
+              <a
+                href="mailto:hello@filtercoffeeco.in"
                 className="bg-brand-yellow text-brand-navy text-xs font-black uppercase tracking-widest px-8 py-3.5 rounded-full inline-flex items-center gap-2 hover:bg-white transition-colors"
               >
                 <span>Spill the beans with us</span>
                 <span>→</span>
-              </Link>
+              </a>
             </div>
           </div>
         </div>

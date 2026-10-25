@@ -20,14 +20,5 @@ function Track({ reverse = false, className = '' }) {
 }
 
 export default function Ticker() {
-  return (
-    <div id="ticker" className="border-y border-brand-navy/10 overflow-hidden bg-brand-yellow relative z-10 shadow-md">
-      <div className="marquee-wrap py-[18px] border-b border-brand-navy/10 hover:[&>div]:[animation-play-state:paused]">
-        <Track />
-      </div>
-      <div className="marquee-wrap py-[18px] hover:[&>div]:[animation-play-state:paused]">
-        <Track reverse />
-      </div>
-    </div>
-  );
+  return null;
 }

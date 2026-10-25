@@ -129,7 +129,7 @@ export default function BeamHero() {
   // Smooth scroll down to next section
   const handleScrollClick = (e) => {
     e.preventDefault();
-    const nextElem = document.getElementById('ticker') || document.querySelector('section:nth-of-type(2)');
+    const nextElem = document.getElementById('work') || document.querySelector('section:nth-of-type(2)');
     if (nextElem) {
       nextElem.scrollIntoView({ behavior: 'smooth' });
     } else {
@@ -573,7 +573,7 @@ export default function BeamHero() {
 
       {/* ── Scroll Indicator (Fades in with UI) ── */}
       <a
-        href="#ticker"
+        href="#work"
         onClick={handleScrollClick}
         aria-label="Scroll to explore"
         style={{

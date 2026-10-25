@@ -1,238 +1,167 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
-import Masonry from '../components/Masonry';
 import BackgroundShapes from '../components/BackgroundShapes';
 
-/* Lightweight CSS-only flip card for mobile */
-function MobileFlipCard({ img, title, description }) {
-  const [flipped, setFlipped] = useState(false);
+/* ─── Image pool — 5 columns × 6 unique images each ───────────────────────── */
+const COL_IMAGES = [
+  /* Col 1 — scrolls UP */
+  [
+    { src: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80', alt: 'Brand Campaign' },
+    { src: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=80', alt: 'Fashion Shoot' },
+    { src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80', alt: 'Lifestyle' },
+    { src: 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&q=80', alt: 'Product' },
+    { src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80', alt: 'Beauty' },
+    { src: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80', alt: 'Style' },
+  ],
+  /* Col 2 — scrolls DOWN */
+  [
+    { src: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80', alt: 'Creative Direction' },
+    { src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=80', alt: 'Art Direction' },
+    { src: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=600&q=80', alt: 'Branding' },
+    { src: 'https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=600&q=80', alt: 'Campaign' },
+    { src: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&q=80', alt: 'Content' },
+    { src: 'https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=600&q=80', alt: 'Digital' },
+  ],
+  /* Col 3 — scrolls UP */
+  [
+    { src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80', alt: 'Influencer' },
+    { src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', alt: 'Social' },
+    { src: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=600&q=80', alt: 'Studio' },
+    { src: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?w=600&q=80', alt: 'Portrait' },
+    { src: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&q=80', alt: 'Talent' },
+    { src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', alt: 'Creative' },
+  ],
+  /* Col 4 — scrolls DOWN */
+  [
+    { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', alt: 'Film' },
+    { src: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600&q=80', alt: 'Video' },
+    { src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80', alt: 'Production' },
+    { src: 'https://images.unsplash.com/photo-1543269664-7eef42226a21?w=600&q=80', alt: 'Platform' },
+    { src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80', alt: 'Talent' },
+    { src: 'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?w=600&q=80', alt: 'Events' },
+  ],
+  /* Col 5 — scrolls UP */
+  [
+    { src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80', alt: 'Fashion' },
+    { src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80', alt: 'Beauty' },
+    { src: 'https://images.unsplash.com/photo-1496440737103-cd596325d314?w=600&q=80', alt: 'Street' },
+    { src: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=600&q=80', alt: 'Art' },
+    { src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80', alt: 'Life' },
+    { src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&q=80', alt: 'Luxury' },
+  ],
+];
+
+/* Direction per column: true = up, false = down */
+const DIRECTIONS = [true, false, true, false, true];
+
+/* Speed (seconds per loop) — slight variation for organic feel */
+const SPEEDS = [28, 22, 32, 24, 30];
+
+/* ─── Single Column ─────────────────────────────────────────────────────── */
+function GalleryColumn({ images, goUp, speed }) {
+  /* Duplicate images for seamless infinite loop */
+  const doubled = [...images, ...images];
+
   return (
-    <div
-      className="mobile-flip-card flex-shrink-0 w-[220px] h-[340px] rounded-2xl shadow-lg"
-      style={{ scrollSnapAlign: 'start', perspective: '900px' }}
-      onClick={() => setFlipped(f => !f)}
-    >
+    <div className="relative flex-1 overflow-hidden" style={{ minWidth: 0 }}>
       <div
-        className="mobile-flip-inner w-full h-full relative"
-        style={{
-          transformStyle: 'preserve-3d',
-          transition: 'transform 0.5s ease',
-          transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-        }}
+        className={`gallery-col ${goUp ? 'gallery-col--up' : 'gallery-col--down'}`}
+        style={{ animationDuration: `${speed}s` }}
       >
-        {/* Front */}
-        <div className="absolute inset-0 rounded-2xl overflow-hidden" style={{ backfaceVisibility: 'hidden' }}>
-          <img src={img} alt={title} className="w-full h-full object-cover" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-4">
-            <span className="inline-block bg-white/15 text-white/90 text-[0.55rem] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-white/10 mb-2">
-              {title.split(' ')[0]}
-            </span>
-            <h3 className="text-white text-sm font-bold leading-tight">{title}</h3>
+        {doubled.map((img, i) => (
+          <div
+            key={i}
+            className="relative overflow-hidden flex-shrink-0"
+            style={{ borderRadius: '16px', aspectRatio: i % 3 === 1 ? '3/4' : '2/3' }}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading="lazy"
+              className="w-full h-full object-cover"
+              style={{ display: 'block' }}
+            />
+            {/* Dark overlay for moody look */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.38) 100%)',
+                borderRadius: '16px',
+              }}
+            />
           </div>
-        </div>
-        {/* Back */}
-        <div
-          className="absolute inset-0 rounded-2xl bg-[#1a1a1a] flex flex-col items-center justify-center p-6 text-center"
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-        >
-          <h3 className="text-white text-[1.15rem] font-black leading-tight mb-3">{title}</h3>
-          <p className="text-white/60 text-[0.75rem] leading-relaxed">{description}</p>
-          <span className="mt-4 text-white/30 text-[0.55rem] uppercase tracking-widest font-bold">Tap to flip back</span>
-        </div>
+        ))}
       </div>
     </div>
   );
 }
 
-const galleryItems = [
-  {
-    id: '1',
-    img: 'https://picsum.photos/seed/creative/800/600',
-    title: 'Creative Direction',
-    description: 'Bringing visual identities to life with striking aesthetics.',
-    height: 400
-  },
-  {
-    id: '2',
-    img: 'https://picsum.photos/seed/social/800/500',
-    title: 'Social Strategy',
-    description: 'Crafting campaigns that stop the scroll and start conversations.',
-    height: 250
-  },
-  {
-    id: '3',
-    img: 'https://picsum.photos/seed/content/800/700',
-    title: 'Content Production',
-    description: 'From raw concepts to polished, feed-ready digital assets.',
-    height: 500
-  },
-  {
-    id: '4',
-    img: 'https://picsum.photos/seed/brand/800/550',
-    title: 'Brand Storytelling',
-    description: 'Connecting brands with audiences through authentic narratives.',
-    height: 300
-  },
-  {
-    id: '5',
-    img: 'https://picsum.photos/seed/influencer/800/650',
-    title: 'Influencer Marketing',
-    description: 'Leveraging creator voices for maximum reach and impact.',
-    height: 450
-  },
-  {
-    id: '6',
-    img: 'https://picsum.photos/seed/ecommerce/800/500',
-    title: 'E-Commerce',
-    description: 'Optimizing the digital shelf to turn views into conversions.',
-    height: 350
-  },
-  {
-    id: '7',
-    img: 'https://picsum.photos/seed/artdir/800/750',
-    title: 'Art Direction',
-    description: 'Curating bold, memorable aesthetics that demand attention.',
-    height: 550
-  },
-  {
-    id: '8',
-    img: 'https://picsum.photos/seed/digital/800/600',
-    title: 'Digital Campaigns',
-    description: 'Integrated marketing strategies built for the modern web.',
-    height: 400
-  },
-  {
-    id: '9',
-    img: 'https://picsum.photos/seed/product/800/550',
-    title: 'Product Styling',
-    description: 'Showcasing products in their best light to drive desire.',
-    height: 350
-  },
-  {
-    id: '10',
-    img: 'https://picsum.photos/seed/copywrite/800/700',
-    title: 'Copywriting',
-    description: 'Words that punch above their weight and capture brand voice.',
-    height: 480
-  },
-  {
-    id: '11',
-    img: 'https://picsum.photos/seed/community/800/500',
-    title: 'Community Management',
-    description: 'Building and nurturing loyal brand advocates online.',
-    height: 280
-  },
-  {
-    id: '12',
-    img: 'https://picsum.photos/seed/video/800/650',
-    title: 'Video Production',
-    description: 'Dynamic motion graphics and live-action storytelling.',
-    height: 420
-  },
-  {
-    id: '13',
-    img: 'https://picsum.photos/seed/analytics/800/600',
-    title: 'Analytics & Insights',
-    description: 'Data-driven decisions to continuously optimize performance.',
-    height: 380
-  },
-  {
-    id: '14',
-    img: 'https://picsum.photos/seed/research/800/500',
-    title: 'Market Research',
-    description: 'Understanding consumer behavior to stay ahead of trends.',
-    height: 300
-  },
-  {
-    id: '15',
-    img: 'https://picsum.photos/seed/platform/800/700',
-    title: 'Platform Strategy',
-    description: 'Tailoring content natively for TikTok, Instagram, and beyond.',
-    height: 500
-  },
-  {
-    id: '16',
-    img: 'https://picsum.photos/seed/grind/800/550',
-    title: 'The Daily Grind',
-    description: 'Behind the scenes at FCC where the magic is brewed daily.',
-    height: 320
-  }
-];
-
+/* ─── Page ──────────────────────────────────────────────────────────────── */
 export default function GalleryPage() {
   return (
-    <div className="min-h-screen bg-brand-light pt-32 pb-24 md:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-brand-light relative overflow-hidden">
       <BackgroundShapes variant="gallery" />
-      <div className="max-w-[1400px] mx-auto">
-        <div className="mb-10 md:mb-16 px-4 md:px-0">
-          <div className="text-[0.7rem] font-sans font-bold tracking-widest2 uppercase text-brand-navy/60 mb-4 md:px-4">
+
+      {/* ── Hero Header ── */}
+      <section className="relative pt-[140px] pb-10 px-8 md:px-12 z-10">
+        <div className="max-w-[1360px] mx-auto">
+          <div className="flex items-center gap-4 text-[0.7rem] font-bold tracking-widest2 uppercase text-smoke mb-6">
+            <span className="w-10 h-px bg-brand-navy/30 inline-block" />
             Visual Identity
           </div>
           <ScrollReveal
-            baseOpacity={0.1} enableBlur baseRotation={3} blurStrength={4}
-            textClassName="text-[clamp(3rem,6vw,5rem)] font-serif font-black leading-none text-brand-navy md:px-4"
+            baseOpacity={0.1}
+            enableBlur
+            baseRotation={3}
+            blurStrength={4}
+            textClassName="text-[clamp(3rem,7vw,7rem)] font-black leading-[0.95] tracking-[-0.04em] mb-4 text-brand-navy"
           >
             Our Gallery
           </ScrollReveal>
-        </div>
-
-        {/* Desktop View: Masonry */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="hidden md:block w-full relative min-h-[800px] px-4 md:px-0"
-        >
-          <Masonry
-            items={galleryItems}
-            ease="power3.out"
-            duration={0.6}
-            stagger={0.05}
-            animateFrom="bottom"
-            scaleOnHover
-            hoverScale={0.98}
-            blurToFocus={false}
-            colorShiftOnHover={false}
-          />
-        </motion.div>
-
-        {/* Mobile View: Horizontal Scroll */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="block md:hidden w-full relative"
-        >
-          <div
-            className="flex gap-4 px-4 pb-6 overflow-x-auto"
-            style={{
-              scrollSnapType: 'x mandatory',
-              WebkitOverflowScrolling: 'touch',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
+          <ScrollReveal
+            baseOpacity={0.1}
+            enableBlur
+            baseRotation={0}
+            blurStrength={2}
+            textClassName="text-smoke text-lg max-w-xl leading-relaxed font-medium"
           >
-            {galleryItems.map((item) => (
-              <MobileFlipCard
-                key={item.id}
-                img={item.img}
-                title={item.title}
-                description={item.description}
-              />
-            ))}
-            {/* End spacer so last card doesn't hug edge */}
-            <div className="flex-shrink-0 w-4" />
-          </div>
+            A glimpse into the work, the craft, and the stories we help brands tell.
+          </ScrollReveal>
+        </div>
+      </section>
 
-          {/* Scroll hint */}
-          <div className="flex items-center justify-center gap-2 mt-2 text-brand-navy/40">
-            <span className="text-[0.6rem] font-bold tracking-widest uppercase">Swipe</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </motion.div>
-      </div>
+      {/* ── Infinite Scroll Grid ── */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+        className="relative z-10 w-full"
+        style={{ height: '80vh' }}
+      >
+        {/* Fade edges top & bottom */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 z-20"
+          style={{ height: '60px', background: 'linear-gradient(to bottom, #EAE9E6 0%, transparent 100%)' }}
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-20"
+          style={{ height: '80px', background: 'linear-gradient(to top, #EAE9E6 0%, transparent 100%)' }}
+        />
+
+        <div
+          className="h-full flex gap-3 overflow-hidden"
+          style={{ alignItems: 'flex-start', paddingLeft: '8px', paddingRight: '8px' }}
+        >
+          {COL_IMAGES.map((images, colIdx) => (
+            <GalleryColumn
+              key={colIdx}
+              images={images}
+              goUp={DIRECTIONS[colIdx]}
+              speed={SPEEDS[colIdx]}
+            />
+          ))}
+        </div>
+      </motion.section>
     </div>
   );
 }
