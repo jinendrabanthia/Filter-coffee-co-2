@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout       from './pages/Layout';
 import HomePage     from './pages/HomePage';
 
@@ -8,7 +8,6 @@ const ServicesPage        = lazy(() => import('./pages/ServicesPage'));
 const GalleryPage         = lazy(() => import('./pages/GalleryPage'));
 const AboutPage           = lazy(() => import('./pages/AboutPage'));
 const ClientsPage         = lazy(() => import('./pages/ClientsPage'));
-const ContactPage         = lazy(() => import('./pages/ContactPage'));
 const WorkRouteDispatcher = lazy(() => import('./pages/WorkRouteDispatcher'));
 
 const PageLoader = () => <div className="min-h-[60vh] bg-[#f5f5f0]" />;
@@ -24,7 +23,7 @@ export default function App() {
         <Route path="/gallery"  element={<Suspense fallback={<PageLoader />}><GalleryPage /></Suspense>} />
         <Route path="/about"    element={<Suspense fallback={<PageLoader />}><AboutPage /></Suspense>} />
         <Route path="/clients"  element={<Suspense fallback={<PageLoader />}><ClientsPage /></Suspense>} />
-        <Route path="/contact"  element={<Suspense fallback={<PageLoader />}><ContactPage /></Suspense>} />
+        <Route path="/contact"  element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );

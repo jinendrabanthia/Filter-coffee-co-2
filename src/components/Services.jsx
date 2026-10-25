@@ -181,12 +181,12 @@ export default function Services({ hideHeader = false }) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16,1,0.3,1] }}>
-            <Link to="/contact"
+            <a href="mailto:hello@filtercoffeeco.in"
               className="mag-btn border border-black bg-black text-white text-[0.78rem] font-black
                 tracking-widest uppercase px-12 py-5 cursor-none rounded-full shadow-lg">
               <span>LET'S GET BREWING</span>
               <span className="ml-2">→</span>
-            </Link>
+            </a>
           </motion.div>
         </div>
       </div>

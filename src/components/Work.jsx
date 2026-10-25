@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
-import ScrollFloat from './ScrollFloat';
+import FoldText from './FoldText';
 import BackgroundShapes from './BackgroundShapes';
 
 const works = [
@@ -100,13 +100,22 @@ export default function Work({ hideHeader = false }) {
           transition={{ duration: 0.8, ease: [0.16,1,0.3,1] }}
           className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <ScrollFloat
-              animationDuration={3}
-              textClassName="text-[clamp(2.8rem,5.5vw,5.5rem)] font-black leading-[0.98] tracking-[-0.04em] text-black uppercase"
-            >
-              THE GOOD STUFF
-            </ScrollFloat>
-            <p className="text-smoke text-base md:text-xl max-w-2xl leading-relaxed font-medium mt-4">
+            <div className="text-[clamp(2.8rem,5.5vw,5.5rem)] font-black leading-[0.98] tracking-[-0.04em] text-black uppercase mb-6">
+              <FoldText
+                text="THE GOOD STUFF"
+                splitBy="char"
+                hinge="top"
+                trigger="scroll"
+                duration={0.65}
+                delay={0.1}
+                stagger={0.035}
+                ease="power3.out"
+                color="#000000"
+                fontSize="inherit"
+                fontWeight={900}
+              />
+            </div>
+            <p className="text-smoke text-base md:text-xl max-w-2xl leading-relaxed font-medium">
               Ideas that left the deck and made it to feeds, screens and conversations.
             </p>
           </div>

@@ -42,14 +42,14 @@ const ScrollFloat = ({
         charElements,
         {
           opacity: 0,
-          yPercent: 80,
-          scaleY: 1.8,
-          scaleX: 0.8,
-          transformOrigin: '50% 0%',
+          yPercent: 30,
+          scaleY: 1,
+          scaleX: 1,
+          transformOrigin: '50% 100%',
         },
         {
           duration: animationDuration,
-          ease: ease,
+          ease: 'power3.out',
           opacity: 1,
           yPercent: 0,
           scaleY: 1,
@@ -60,7 +60,7 @@ const ScrollFloat = ({
             scroller,
             start: scrollStart,
             end: scrollEnd,
-            scrub: 0.8,
+            scrub: 0.5,
             fastScrollEnd: true,
           },
         }

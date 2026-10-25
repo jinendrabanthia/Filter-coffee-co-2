@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const links = [
   { label: 'About',       to: '/about'    },
   { label: 'Work',        to: '/work'     },
+  { label: 'Gallery',     to: '/gallery'  },
   { label: 'Our Clients', to: '/clients'  },
-  { label: 'Contact',     to: '/contact'  },
 ];
 
 const smoothSpring = {
@@ -45,16 +45,8 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  const handleNavClick = (e, link) => {
+  const handleNavClick = () => {
     setOpen(false);
-    if (location.pathname === '/') {
-      const targetId = link.to.replace('/', '');
-      const el = document.getElementById(targetId);
-      if (el) {
-        e.preventDefault();
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
   };
 
   const handleLogoClick = (e) => {

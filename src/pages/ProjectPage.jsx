@@ -220,9 +220,9 @@ export default function ProjectPage() {
           <Link to="/work" className="text-[0.75rem] font-bold tracking-widest uppercase text-brand-navy/50 hover:text-brand-navy transition-colors">
             ← Back to Work
           </Link>
-          <Link to="/contact" className="bg-brand-navy text-white text-[0.72rem] font-black tracking-widest uppercase px-8 py-4 rounded-full hover:bg-brand-navy/90 transition-colors">
+          <a href="mailto:hello@filtercoffeeco.in" className="bg-brand-navy text-white text-[0.72rem] font-black tracking-widest uppercase px-8 py-4 rounded-full hover:bg-brand-navy/90 transition-colors">
             Start a Project
-          </Link>
+          </a>
         </motion.div>
       </div>
     </div>
