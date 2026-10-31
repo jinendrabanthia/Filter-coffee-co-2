@@ -1,13 +1,13 @@
-import React, { useState, useRef } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import ScrollFloat from '../components/ScrollFloat';
 import ScrollReveal from '../components/ScrollReveal';
-import BackgroundShapes from '../components/BackgroundShapes';
 
-/* ─── All 52 Client Brands ─────────────────────────────────────────────────── */
+/* ─── All 52 Genuine Client Brands ─────────────────────────────────────────── */
 const CLIENTS = [
-  /* ── Positions 1-6: The 6 parent companies ── */
+  /* ── The 6 parent companies ── */
   { name: "P&G",                    logo: "/images/clients/pg.png" },
   { name: "L'ORÉAL PARIS",          logo: "/images/clients/loreal.png" },
   { name: "Galderma",               logo: "/images/clients/galderma.png" },
@@ -34,7 +34,7 @@ const CLIENTS = [
   { name: "NYKAA Beauty",           logo: "/images/clients/nykaa-beauty.png" },
   { name: "Kay Beauty",             logo: "/images/clients/kaybeauty.png" },
 
-  /* 7. OTHER GLOBAL, PRESTIGE & D2C BRANDS */
+  /* ── OTHER GLOBAL, PRESTIGE & D2C BRANDS ── */
   { name: "ESTÉE LAUDER",           logo: "/images/clients/esteelauder.png" },
   { name: "benefit",                logo: "/images/clients/benefit.png" },
   { name: "LACTO CALAMINE",         logo: "/images/clients/lactocalamine.png" },
@@ -72,110 +72,55 @@ const CLIENTS = [
   { name: "LOVECHILD masaba",       logo: "/images/clients/lovechild.png" },
 ];
 
-/* ─── Stagger container ──────────────────────────────────────────────────────── */
 const gridVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.04, delayChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.03, delayChildren: 0.05 } },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 36, scale: 0.9, rotateX: 8 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
-    opacity: 1, y: 0, scale: 1, rotateX: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
-/* Size map: controls how large the logo image sits inside the card */
-const SIZE_MAP = { small: '65%', default: '78%', large: '82%' };
-
-/* ─── Single Logo Card — 3-D tilt + glow + shimmer ─────────────────────────── */
+/* ─── Flat, Simple Logo Card (No 3D tilt per requirement) ──────────────────── */
 function LogoCard({ brand }) {
   const [imgOk, setImgOk] = useState(!!brand.logo);
-  const cardRef = useRef(null);
-  const imgSize = SIZE_MAP[brand.size] || SIZE_MAP.default;
-
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]),  { stiffness: 280, damping: 24 });
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 280, damping: 24 });
-
-  /* Glow background derived from mouse position */
-  const glowBg = useTransform(
-    [mouseX, mouseY],
-    ([x, y]) =>
-      `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.45) 0%, transparent 60%)`
-  );
-
-  function onMouseMove(e) {
-    if (!cardRef.current) return;
-    const r = cardRef.current.getBoundingClientRect();
-    mouseX.set((e.clientX - r.left) / r.width);
-    mouseY.set((e.clientY - r.top)  / r.height);
-  }
-  function onMouseLeave() {
-    mouseX.set(0.5);
-    mouseY.set(0.5);
-  }
 
   return (
     <motion.div
-      ref={cardRef}
       variants={cardVariants}
-      whileHover={{
-        scale: 1.05,
-        zIndex: 20,
-        boxShadow: '0 16px 36px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.04)',
-        borderColor: 'rgba(17,17,17,0.3)',
-        backgroundColor: '#ffffff',
-      }}
-      whileTap={{ scale: 0.95 }}
-      style={{ rotateX, rotateY, transformPerspective: 900, transformStyle: 'preserve-3d' }}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className="client-logo-card group relative overflow-hidden"
+      whileHover={{ y: -3, borderColor: '#2563EB', backgroundColor: '#ffffff', boxShadow: '0 8px 24px rgba(37, 99, 235, 0.08)' }}
+      whileTap={{ scale: 0.98 }}
+      className="bg-white border border-[#111111]/10 rounded-xl p-3 sm:p-4 flex items-center justify-center aspect-[4/3] group transition-all duration-300 relative shadow-sm overflow-hidden"
     >
-      {/* Cursor-tracked radial glow */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 rounded-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-        style={{ background: glowBg }}
-      />
-
-      {/* Shimmer sweep */}
-      <span className="client-logo-shimmer" />
-
-      {/* Content */}
       {imgOk ? (
-        <motion.img
+        <img
           src={brand.logo}
           alt={brand.name}
           onError={() => setImgOk(false)}
-          className="client-logo-img"
-          whileHover={{ scale: 1.08 }}
-          transition={{ duration: 0.35 }}
+          loading="lazy"
+          className="w-full h-full max-h-[60%] max-w-[70%] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 pointer-events-none select-none"
         />
       ) : (
-        <motion.span
-          className="client-logo-text"
-          whileHover={{ letterSpacing: '0.13em', color: 'rgba(17,17,17,0.95)' }}
-          transition={{ duration: 0.3 }}
-        >
+        <span className="text-sm font-bold uppercase tracking-wider text-[#111111]/70 text-center group-hover:text-[#2563EB] transition-colors">
           {brand.name}
-        </motion.span>
+        </span>
       )}
     </motion.div>
   );
 }
 
-/* ─── Single Unified Logo Grid ─────────────────────────────────────────────── */
 function LogoGrid() {
-  const [ref, inView] = useInView({ threshold: 0.02, rootMargin: '100px 0px', triggerOnce: true });
+  const [ref, inView] = useInView({ threshold: 0.02, rootMargin: '60px 0px', triggerOnce: true });
 
   return (
     <motion.div
       ref={ref}
-      className="client-logo-grid"
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5"
       variants={gridVariants}
       initial="hidden"
       animate={inView ? 'visible' : 'hidden'}
@@ -187,38 +132,61 @@ function LogoGrid() {
   );
 }
 
-/* ─── Page ──────────────────────────────────────────────────────────────────── */
 export default function ClientsPage() {
   return (
-    <>
+    <div className="bg-[#F7F5EF] min-h-screen text-[#111111]">
       {/* Page Hero */}
-      <section className="relative pt-[140px] pb-[80px] overflow-hidden bg-transparent">
-        <div className="max-w-[1360px] mx-auto px-8 md:px-12 relative z-10">
-          <ScrollFloat
-            textClassName="text-[clamp(2.2rem,4.2vw,4rem)] font-bold leading-[1.08] tracking-tight mb-6 text-[#280049]"
-            animationDuration={1.8}
-            stagger={0.025}
-          >
-            OUR CLIENTS
-          </ScrollFloat>
-          <ScrollReveal
-            baseOpacity={0.1}
-            enableBlur
-            baseRotation={0}
-            blurStrength={2}
-            textClassName="text-[#280049]/85 text-lg max-w-xl leading-relaxed font-medium"
-          >
-            From skincare shelves to social feeds, we've partnered with brands to keep conversations brewing.
-          </ScrollReveal>
+      <section className="relative pt-[140px] pb-[70px] overflow-hidden bg-[#F7F5EF] border-b border-[#111111]/10">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-12 relative z-10">
+          <div className="max-w-4xl">
+            <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-4">
+              THE COMPANY WE KEEP
+            </p>
+            <ScrollFloat
+              textClassName="text-[clamp(2.5rem,5.5vw,5rem)] font-black leading-[0.96] tracking-[-0.03em] uppercase mb-8 text-[#111111]"
+              animationDuration={1.6}
+              stagger={0.02}
+            >
+              GOOD COMPANY. GOOD CREATIVE WORK.
+            </ScrollFloat>
+            <ScrollReveal
+              baseOpacity={0.2}
+              enableBlur
+              baseRotation={0}
+              blurStrength={2}
+              textClassName="text-[#111111]/80 text-lg md:text-xl max-w-2xl leading-relaxed font-medium"
+            >
+              From skincare shelves to social feeds, we've partnered with brands to keep conversations brewing.
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
-      {/* Unified Clients Grid */}
-      <section className="py-[60px] pb-[120px] border-b border-black/10 bg-transparent relative z-10">
-        <div className="max-w-[1360px] mx-auto px-8 md:px-12">
+      {/* Flat Unified Clients Grid */}
+      <section className="py-20 md:py-24 bg-[#F7F5EF] relative z-10">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-12">
           <LogoGrid />
         </div>
       </section>
-    </>
+
+      {/* Closing Transition Strip */}
+      <section className="bg-[#111111] py-16 px-6 md:px-12 text-center text-white border-t border-[#111111] relative z-10">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[#BFE9FF] text-[0.7rem] font-bold tracking-[0.22em] uppercase mb-4">
+            LET'S COLLABORATE
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-8 !text-white" style={{ color: '#ffffff' }}>
+            READY TO JOIN OUR ROSTER OF AMBITIOUS BRANDS?
+          </h2>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 bg-[#2563EB] hover:bg-white hover:text-[#111111] text-white text-[0.78rem] font-black tracking-[0.16em] uppercase px-8 py-4 rounded-full transition-all shadow-md"
+          >
+            <span>START A PROJECT</span>
+            <span className="text-sm">→</span>
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 }

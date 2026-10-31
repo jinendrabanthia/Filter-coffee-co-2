@@ -12,25 +12,32 @@ export default {
       },
       colors: {
         white:  '#ffffff',
-        black:  '#280049',
-        ink:    '#ffffff',
-        chalk:  '#0a0a0a',
-        smoke:  'rgba(40, 0, 73, 0.85)',
-        ash:    '#280049',
-        border: 'rgba(41, 0, 75, 0.12)',
-        // Brand Palette: Funky, Elegant & Minimalist
-        'brand-orange': '#F94500', // Vibrant Filter Coffee Orange
-        'brand-vermilion': '#F94500',
-        'brand-amber':  '#FAA533', // Sunburst Golden Amber
-        'brand-cream':  '#EBEBEB', // Minimalist Off-White Canvas
-        'brand-blue':   '#0BA6DF', // Electric Sky Cyan Pop
-        'brand-yellow': '#FAA533', // Mapped to Sunburst Amber for existing components
-        'brand-navy':   '#280049', // Deep Midnight Purple text
-        'brand-indigo': '#280049',
-        'brand-purple': '#280049',
-        'brand-light':  '#EBEBEB', // Off-White
-        'brand-theme':  '#F94500', // Primary Theme Lavender Orchid
-        'brand-dark': '#280049',
+        black:  '#111111',
+        ink:    '#111111',
+        chalk:  '#F7F5EF',
+        smoke:  'rgba(17, 17, 17, 0.75)',
+        ash:    '#111111',
+        border: 'rgba(17, 17, 17, 0.12)',
+        // Approved Electric Blue palette & accents
+        'brand-blue':     '#2563EB', // Cobalt Blue Accent
+        'brand-cobalt':   '#2563EB',
+        'brand-sky':      '#BFE9FF', // Sky Blue Primary BG
+        'brand-ivory':    '#F7F5EF', // Ivory Secondary BG
+        'brand-orange':   '#FF6B35', // Tangerine accent
+        'brand-tangerine':'#FF6B35',
+        'brand-lime':     '#D5F45B', // Acid Lime accent
+        'brand-lavender': '#C7B8FF', // Lavender accent
+        'brand-cherry':   '#E63935', // Cherry Red accent
+        'brand-navy':     '#111111', // Almost Black
+        'brand-indigo':   '#2563EB',
+        'brand-purple':   '#2563EB',
+        'brand-dark':     '#111111',
+        'brand-theme':    '#BFE9FF',
+        'brand-cream':    '#F7F5EF',
+        'brand-light':    '#F7F5EF',
+        'brand-amber':    '#FF6B35',
+        'brand-yellow':   '#D5F45B',
+        'brand-vermilion':'#FF6B35',
       },
       letterSpacing: {
         widest2: '0.22em',

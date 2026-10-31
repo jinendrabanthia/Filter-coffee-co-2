@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #E5E5E5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .screen {
+      width: 375px;
+      height: 667px;
+      background: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-container {
+      position: relative;
+      width: 78%;
+      max-width: 680px;
+    }
+    .logo-base {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .logo-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    @keyframes fccFillFilter {
+      0% { clip-path: inset(100% 60.55% 0% 0%); }
+      33.333% { clip-path: inset(0% 60.55% 0% 0%); }
+      100% { clip-path: inset(0% 60.55% 0% 0%); }
+    }
+    @keyframes fccFillCoffee {
+      0%, 33.333% { clip-path: inset(100% 13.97% 0% 39.45%); }
+      66.667% { clip-path: inset(0% 13.97% 0% 39.45%); }
+      100% { clip-path: inset(0% 13.97% 0% 39.45%); }
+    }
+    @keyframes fccFillCo {
+      0%, 66.667% { clip-path: inset(100% 0% 0% 86.03%); }
+      100% { clip-path: inset(0% 0% 0% 86.03%); }
+    }
+    .fcc-anim-filter { animation: fccFillFilter 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+    .fcc-anim-coffee { animation: fccFillCoffee 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+    .fcc-anim-co { animation: fccFillCo 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="logo-container">
+      <img src="file:///C:/Users/asus/OneDrive/Documents/GitHub/Filter-coffee-co-2/public/images/fcc-trademark-outline-2x.png" class="logo-base" />
+      <img src="file:///C:/Users/asus/OneDrive/Documents/GitHub/Filter-coffee-co-2/public/images/fcc-trademark-logo-2x.png" class="logo-overlay fcc-anim-filter" />
+      <img src="file:///C:/Users/asus/OneDrive/Documents/GitHub/Filter-coffee-co-2/public/images/fcc-trademark-logo-2x.png" class="logo-overlay fcc-anim-coffee" />
+      <img src="file:///C:/Users/asus/OneDrive/Documents/GitHub/Filter-coffee-co-2/public/images/fcc-trademark-logo-2x.png" class="logo-overlay fcc-anim-co" />
+      <img src="file:///C:/Users/asus/OneDrive/Documents/GitHub/Filter-coffee-co-2/public/images/fcc-trademark-outline-2x.png" class="logo-overlay" />
+    </div>
+  </div>
+</body>
+</html>

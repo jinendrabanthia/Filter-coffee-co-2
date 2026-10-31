@@ -1,228 +1,164 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from './Logo';
 
 const links = [
-  { label: 'About',       to: '/about'    },
-  { label: 'Work',        to: '/work'     },
-  { label: 'Gallery',     to: '/gallery'  },
-  { label: 'Our Clients', to: '/clients'  },
+  { label: 'Work',     to: '/work' },
+  { label: 'About',    to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Clients',  to: '/clients' },
+  { label: 'Gallery',  to: '/gallery' },
+  { label: 'Contact',  to: '/contact' },
 ];
 
-const smoothSpring = {
-  type: 'spring',
-  stiffness: 300,
-  damping: 30,
-  mass: 0.8,
-};
-
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const ticking = useRef(false);
-  const isHome = location.pathname === '/';
 
-  const handleScroll = useCallback(() => {
-    if (ticking.current) return;
-    ticking.current = true;
-
-    requestAnimationFrame(() => {
-      const currentY = window.scrollY;
-      // Smooth hysteresis: scroll down past 80px activates logo, scroll back above 40px returns to links
-      if (currentY > 80) {
-        setIsScrolled(true);
-        setOpen(false);
-      } else if (currentY < 40) {
-        setIsScrolled(false);
-      }
-      ticking.current = false;
-    });
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    setOpen(false);
+  }, [location.pathname]);
 
-  const handleNavClick = () => {
+  const handleLogoClick = () => {
+    window.dispatchEvent(new CustomEvent('fcc_replay_intro'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setOpen(false);
   };
 
-  const handleLogoClick = (e) => {
-    if (isScrolled) {
-      e.preventDefault();
-      e.stopPropagation();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setIsScrolled(false);
-    }
-  };
-
-  const showCenterLogo = isHome ? isScrolled : isScrolled;
-  const showLinks = isHome ? !isScrolled : !isScrolled;
-
   return (
-    <motion.nav
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 inset-x-0 z-[500] flex items-center justify-center px-4 md:px-8 pt-3 pointer-events-none"
-    >
-      {/* ── Glassmorphism Morphing Pill Container ── */}
+    <nav className="fixed top-0 inset-x-0 z-[500] flex flex-col items-center pt-3 px-4">
       <motion.div
-        layout
-        transition={smoothSpring}
-        className={`pointer-events-auto relative inline-flex items-center justify-center mx-auto ${
-          showCenterLogo ? 'cursor-pointer hover:scale-[1.03] active:scale-[0.98]' : ''
-        }`}
-        style={{
-          borderRadius: 9999,
-          background: showCenterLogo
-            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.86) 100%)'
-            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.78) 100%)',
-          backdropFilter: 'blur(16px) saturate(150%)',
-          WebkitBackdropFilter: 'blur(16px) saturate(150%)',
-          border: '1px solid rgba(255, 255, 255, 0.88)',
-          boxShadow: showCenterLogo
-            ? '0 16px 36px -10px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0,0,0,0.03), inset 0 1px 1px rgba(255, 255, 255, 0.95)'
-            : '0 8px 28px -8px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0,0,0,0.02), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
-          paddingLeft: showCenterLogo ? '24px' : isHome ? '36px' : '28px',
-          paddingRight: showCenterLogo ? '24px' : isHome ? '36px' : '28px',
-          paddingTop: showCenterLogo ? '10px' : '12px',
-          paddingBottom: showCenterLogo ? '10px' : '12px',
-          width: 'auto',
-          minWidth: showCenterLogo ? '240px' : 'auto',
-        }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full max-w-[1200px]"
       >
-        <div className="flex items-center justify-center relative w-full">
-          {/* Logo on Subpages when at the top */}
-          {!isHome && !isScrolled && (
-            <div className="flex items-center shrink-0 mr-8">
-              <Link
-                to="/"
-                className="font-nunito font-black text-[1.28rem] tracking-[0.08em] text-[#280049] shrink-0 hover:opacity-75 transition-opacity flex items-center select-none"
-              >
-                <span>FILTER COFFEE</span>
-                <span className="ml-1 text-[0.98rem] opacity-80">co.</span>
-              </Link>
-            </div>
-          )}
+        {/* ── Liquid Glass Pill ── */}
+        <div
+          className={`relative flex items-center justify-between px-5 md:px-8 transition-all duration-500 ${
+            scrolled ? 'py-2.5 rounded-2xl' : 'py-4 rounded-[28px]'
+          }`}
+          style={{
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.52) 0%, rgba(191,233,255,0.32) 50%, rgba(255,255,255,0.40) 100%)',
+            backdropFilter: 'blur(28px) saturate(190%)',
+            WebkitBackdropFilter: 'blur(28px) saturate(190%)',
+            border: '1px solid rgba(255,255,255,0.60)',
+            boxShadow: scrolled
+              ? '0 8px 32px rgba(0,0,0,0.10), 0 2px 6px rgba(37,99,235,0.06), inset 0 1.5px 0 rgba(255,255,255,0.75), inset 0 -1px 0 rgba(191,233,255,0.3)'
+              : '0 4px 20px rgba(0,0,0,0.07), inset 0 1.5px 0 rgba(255,255,255,0.70)',
+          }}
+        >
+          {/* Top gloss streak */}
+          <div
+            className="absolute inset-x-[8%] top-0 h-px rounded-full pointer-events-none"
+            style={{
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 40%, rgba(255,255,255,1) 60%, transparent)',
+            }}
+          />
+          {/* Bottom soft reflection */}
+          <div
+            className="absolute inset-x-[12%] bottom-0 h-px rounded-full pointer-events-none"
+            style={{
+              background: 'linear-gradient(90deg, transparent, rgba(191,233,255,0.55) 50%, transparent)',
+            }}
+          />
 
-          {/* Centered Logo — Originates directly from the exact center */}
-          <AnimatePresence mode="popLayout" initial={false}>
-            {showCenterLogo && (
-              <motion.div
-                key="center-logo"
-                initial={{ opacity: 0, scale: 0.9, y: 0, x: 0, filter: 'blur(3px)' }}
-                animate={{ opacity: 1, scale: 1, y: 0, x: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 0.9, y: 0, x: 0, filter: 'blur(3px)' }}
-                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-center justify-center select-none text-center mx-auto"
-              >
+          {/* Brand Wordmark (Official Trademark Logo) */}
+          <Link
+            to="/"
+            onClick={handleLogoClick}
+            className="select-none group relative z-10 flex items-center whitespace-nowrap"
+          >
+            <Logo
+              size="text-[1.05rem] md:text-[1.22rem]"
+              className="text-[#111111] group-hover:text-[#2563EB] transition-colors"
+            />
+          </Link>
+
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-6 lg:gap-8 relative z-10">
+            {links.map((link) => {
+              const isActive = location.pathname === link.to;
+              return (
                 <Link
-                  to="/"
-                  onClick={handleLogoClick}
-                  className="font-nunito font-black text-[1.24rem] tracking-[0.08em] text-[#280049] shrink-0 hover:opacity-75 transition-opacity flex items-center justify-center select-none"
-                  title="Scroll to top"
+                  key={link.to}
+                  to={link.to}
+                  className={`text-[0.72rem] font-bold tracking-[0.18em] uppercase transition-colors relative py-1 ${
+                    isActive
+                      ? 'text-[#2563EB]'
+                      : 'text-[#111111]/80 hover:text-[#2563EB]'
+                  }`}
                 >
-                  <span>FILTER COFFEE</span>
-                  <span className="ml-1 text-[0.96rem] opacity-80">co.</span>
-                  <span
-                    className="ml-2 inline-flex items-center justify-center w-4 h-4 rounded-full bg-black/5 text-[9px] text-black/60 font-bold"
-                  >
-                    ↑
-                  </span>
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navbar-indicator"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2563EB] rounded-full"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
                 </Link>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              );
+            })}
+          </div>
 
-          {/* Centered Navigation Links — Centered without any horizontal shift */}
-          <AnimatePresence mode="popLayout" initial={false}>
-            {showLinks && (
-              <motion.div
-                key="nav-links"
-                initial={{ opacity: 0, scale: 0.96, y: 0, x: 0, filter: 'blur(3px)' }}
-                animate={{ opacity: 1, scale: 1, y: 0, x: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 0.96, y: 0, x: 0, filter: 'blur(3px)' }}
-                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-center justify-center mx-auto"
-              >
-                {/* Desktop Links (Center-aligned) */}
-                <ul className="hidden md:flex items-center justify-center gap-7 lg:gap-9">
-                  {links.map((l) => {
-                    const isActive = location.pathname === l.to;
-                    return (
-                      <li key={l.to} className="relative group/item">
-                        <Link
-                          to={l.to}
-                          onClick={(e) => handleNavClick(e, l)}
-                          className={`group flex items-center relative transition-opacity ${
-                            isActive ? 'opacity-100 font-extrabold' : 'opacity-85 hover:opacity-100'
-                          }`}
-                        >
-                          <span className="text-[0.74rem] font-sans font-bold text-[#280049] tracking-[0.18em] uppercase transition-colors leading-tight whitespace-nowrap">
-                            {l.label}
-                          </span>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                {/* Mobile Menu Button */}
-                <button
-                  className="md:hidden flex items-center gap-2 px-1 py-0.5 text-[0.75rem] font-sans font-bold text-brand-navy tracking-[0.16em] uppercase"
-                  onClick={() => setOpen((o) => !o)}
-                  aria-label="Toggle navigation menu"
-                >
-                  <span>Menu</span>
-                  <div className="flex flex-col gap-[3.5px]">
-                    <span className={`block w-3.5 h-[1.5px] bg-black transition-all ${open ? 'rotate-45 translate-y-[5px]' : ''}`} />
-                    <span className={`block w-3.5 h-[1.5px] bg-black transition-all ${open ? 'opacity-0' : ''}`} />
-                    <span className={`block w-3.5 h-[1.5px] bg-black transition-all ${open ? '-rotate-45 -translate-y-[5px]' : ''}`} />
-                  </div>
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Mobile Hamburger — 44px tap target */}
+          <button
+            className="md:hidden flex flex-col items-center justify-center w-11 h-11 gap-[5px] focus:outline-none relative z-10 -mr-2"
+            onClick={() => setOpen((prev) => !prev)}
+            aria-label="Toggle navigation menu"
+          >
+            <span className={`block h-[2px] bg-[#111111] transition-all duration-300 ${open ? 'w-6 rotate-45 translate-y-[7px]' : 'w-6'}`} />
+            <span className={`block h-[2px] bg-[#111111] transition-all duration-300 ${open ? 'opacity-0' : 'w-4'}`} />
+            <span className={`block h-[2px] bg-[#111111] transition-all duration-300 ${open ? 'w-6 -rotate-45 -translate-y-[7px]' : 'w-5'}`} />
+          </button>
         </div>
 
-        {/* Mobile menu dropdown */}
+        {/* Mobile Dropdown — also liquid glass */}
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.98 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute top-[calc(100%+10px)] inset-x-0 min-w-[240px] flex flex-col p-6 gap-4 md:hidden shadow-2xl"
+              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 4, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="md:hidden mt-1 overflow-hidden px-5 py-4 flex flex-col gap-1 rounded-2xl"
               style={{
-                borderRadius: '24px',
-                background: 'rgba(255, 255, 255, 0.96)',
-                backdropFilter: 'blur(28px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-                border: '1px solid rgba(255, 255, 255, 0.9)',
-                boxShadow: '0 20px 40px -10px rgba(0,0,0,0.15)',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(191,233,255,0.65) 100%)',
+                backdropFilter: 'blur(28px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(28px) saturate(190%)',
+                border: '1px solid rgba(255,255,255,0.62)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.10), inset 0 1.5px 0 rgba(255,255,255,0.80)',
               }}
             >
-              {links.map((l) => (
-                <div key={l.to} className="flex flex-col border-b border-black/8 pb-3">
+              {links.map((link) => {
+                const isActive = location.pathname === link.to;
+                return (
                   <Link
-                    to={l.to}
-                    onClick={(e) => handleNavClick(e, l)}
-                    className={`text-base font-semibold text-[#280049] transition-colors ${
-                      location.pathname === l.to ? 'opacity-100 font-bold' : 'opacity-70'
+                    key={link.to}
+                    to={link.to}
+                    className={`min-h-[44px] flex items-center text-sm font-bold tracking-[0.16em] uppercase transition-colors px-2 border-b border-[#111111]/8 last:border-b-0 ${
+                      isActive ? 'text-[#2563EB]' : 'text-[#111111]'
                     }`}
                   >
-                    {l.label}
+                    {link.label}
                   </Link>
-                </div>
-              ))}
+                );
+              })}
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
-    </motion.nav>
+    </nav>
   );
 }

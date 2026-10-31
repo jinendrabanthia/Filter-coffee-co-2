@@ -6,8 +6,13 @@
 }
 
 .scroll-float-text {
-  display: inline-block;
+  display: inline;
   line-height: inherit;
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .char {
