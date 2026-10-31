@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Filter Coffee Co. — 6-Second Mobile-First Logo Loader</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #FFFFFF;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Fullscreen pure white loader */
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background-color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Responsive Logo Container: exactly 78% of viewport width on mobile, capped at 680px desktop */
+    .logo-container {
+      position: relative;
+      width: 78vw;
+      max-width: 680px;
+    }
+
+    /* Base outline establishes natural height and width */
+    .logo-base {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Overlays match exact bounding box of base image */
+    .logo-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* WORD 1: FILTER (x: 0% to 39.45%) */
+    /* 00s–02s: bottom-to-top fill (0% to 33.333% of 6s) */
+    @keyframes fccFillFilter {
+      0% {
+        clip-path: inset(100% 60.55% 0% 0%);
+      }
+      33.333% {
+        clip-path: inset(0% 60.55% 0% 0%);
+      }
+      100% {
+        clip-path: inset(0% 60.55% 0% 0%);
+      }
+    }
+
+    /* WORD 2: COFFEE (x: 39.45% to 86.03%) */
+    /* 00s–02s: outline only; 02s–04s: bottom-to-top fill (33.333% to 66.667% of 6s) */
+    @keyframes fccFillCoffee {
+      0%, 33.333% {
+        clip-path: inset(100% 13.97% 0% 39.45%);
+      }
+      66.667% {
+        clip-path: inset(0% 13.97% 0% 39.45%);
+      }
+      100% {
+        clip-path: inset(0% 13.97% 0% 39.45%);
+      }
+    }
+
+    /* WORD 3: co. (x: 86.03% to 100%) */
+    /* 00s–04s: outline only; 04s–06s: bottom-to-top fill (66.667% to 100% of 6s) */
+    @keyframes fccFillCo {
+      0%, 66.667% {
+        clip-path: inset(100% 0% 0% 86.03%);
+      }
+      100% {
+        clip-path: inset(0% 0% 0% 86.03%);
+      }
+    }
+
+    .fcc-anim-filter {
+      animation: fccFillFilter 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      will-change: clip-path;
+    }
+
+    .fcc-anim-coffee {
+      animation: fccFillCoffee 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      will-change: clip-path;
+    }
+
+    .fcc-anim-co {
+      animation: fccFillCo 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      will-change: clip-path;
+    }
+  </style>
+</head>
+<body>
+  <div class="loader-overlay" role="status" aria-label="Filter Coffee Co. Loading">
+    <div class="logo-container">
+      <!-- 1. BASE OUTLINE LAYER (establishes dimensions, thin black outline with white interior) -->
+      <img
+        src="public/images/fcc-trademark-outline-2x.png"
+        alt=""
+        class="logo-base"
+      />
+
+      <!-- 2. RISING FILL LAYERS (Ink rising bottom-to-top per word) -->
+      <img
+        src="public/images/fcc-trademark-logo-2x.png"
+        alt=""
+        class="logo-overlay fcc-anim-filter"
+      />
+      <img
+        src="public/images/fcc-trademark-logo-2x.png"
+        alt=""
+        class="logo-overlay fcc-anim-coffee"
+      />
+      <img
+        src="public/images/fcc-trademark-logo-2x.png"
+        alt=""
+        class="logo-overlay fcc-anim-co"
+      />
+
+      <!-- 3. TOP OUTLINE LAYER (Guarantees black outline is crisp throughout animation) -->
+      <img
+        src="public/images/fcc-trademark-outline-2x.png"
+        alt=""
+        class="logo-overlay"
+      />
+    </div>
+  </div>
+</body>
+</html>

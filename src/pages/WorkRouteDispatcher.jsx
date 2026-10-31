@@ -1,14 +1,16 @@
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ProjectPage from './ProjectPage';
+import WorkCategoryPage from './WorkCategoryPage';
 import { WORK_CATEGORIES } from '../data/workCategories';
 
 export default function WorkRouteDispatcher() {
   const { slug } = useParams();
 
-  // If matches one of the removed subpages, redirect to main /work page
+  // If matches one of the 5 work disciplines, render the rich WorkCategoryPage
   if (WORK_CATEGORIES[slug]) {
-    return <Navigate to="/work" replace />;
+    return <WorkCategoryPage />;
   }
 
+  // Otherwise render the specific project detail page
   return <ProjectPage />;
 }

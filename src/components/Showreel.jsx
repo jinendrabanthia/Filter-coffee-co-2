@@ -33,7 +33,7 @@ export default function Showreel() {
 
           {/* ── Subtle Decorative Watermark / Accent in bottom right ── */}
           <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-[2] hidden sm:flex items-center gap-2 text-white/20 select-none">
-            <span className="text-[11px] font-mono tracking-widest uppercase">FILTER COFFEE CO.</span>
+            <span className="text-[11px] font-mono tracking-widest">FILTER COFFEE co.</span>
             <span className="text-white/40 text-xs">✦</span>
           </div>
         </div>

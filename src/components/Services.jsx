@@ -1,127 +1,110 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ScrollFloat from './ScrollFloat';
-import BackgroundShapes from './BackgroundShapes';
 
 const services = [
   {
-    num: '01', title: 'Social Media',           tagline: 'Always on. Never meh.',
-    tags: ['Social strategy', 'Content calendars', 'Platform-first creative', 'Community'],
-    img: 'https://picsum.photos/seed/service_social/800/450'
+    num: '01',
+    title: 'BRAND STRATEGY',
+    tagline: 'Build the foundation every great brand needs.',
+    desc: 'Before we create, we decode. We uncover your distinctive brand truth, competitive advantage, and customer tension to build an unshakeable strategy.',
+    tags: ['Audience Architecture', 'Brand Positioning', 'Core Messaging', 'Cultural Intelligence'],
   },
   {
-    num: '02', title: 'Creative Campaigns',     tagline: 'Big idea energy.',
-    tags: ['Campaign concepts', 'Digital creative', 'Integrated campaigns', 'Launches'],
-    img: 'https://picsum.photos/seed/service_campaigns/800/450'
+    num: '02',
+    title: 'BRANDING & DESIGN',
+    tagline: 'Visual identities that are impossible to ignore.',
+    desc: 'From custom typographic systems to iconic brand packaging, we craft comprehensive visual universes that stop thumbs and command attention.',
+    tags: ['Identity Systems', 'Typography & Style Guides', 'Packaging Design', 'Motion Guidelines'],
   },
   {
-    num: '03', title: 'Brand & Digital Strategy', tagline: 'Before we post, we plot.',
-    tags: ['Brand strategy', 'Consumer insights', 'Communication', 'Digital strategy'],
-    img: 'https://picsum.photos/seed/service_brand/800/450'
+    num: '03',
+    title: 'CREATIVE CONTENT',
+    tagline: 'Content built for the feed, not the filing cabinet.',
+    desc: 'High-velocity creative engineered for social culture. Reels, photography, kinetic graphics, and episodic content crafted to be saved, shared, and celebrated.',
+    tags: ['Short-Form Video', 'High-Aesthetic Photography', 'Motion Design', 'Trend Jacking'],
   },
   {
-    num: '04', title: 'Content & Production',   tagline: 'Shoot. Edit. Post. Repeat.',
-    tags: ['Reels', 'Films', 'Photography', 'CGI', 'AI-led content'],
-    img: 'https://picsum.photos/seed/service_content/800/450'
+    num: '04',
+    title: 'DIGITAL MARKETING',
+    tagline: 'Getting the right message to the right people.',
+    desc: 'Performance meets creativity. We deploy targeted multi-channel campaigns with creative testing feedback loops that turn interest into sustained revenue.',
+    tags: ['Paid Media Strategy', 'Full-Funnel Creative', 'Creator Whitelisting', 'Analytics & Growth'],
   },
   {
-    num: '05', title: 'Influencer Marketing',   tagline: 'Putting influence to work.',
-    tags: ['Creator strategy', 'Collaborations', 'Campaigns', 'Amplification'],
-    img: 'https://picsum.photos/seed/service_influencer/800/450'
-  },
-  {
-    num: '06', title: 'E-Commerce',             tagline: 'Add creativity to cart.',
-    tags: ['PDP', 'A+ Content', 'Marketplace creatives', 'Performance assets'],
-    img: 'https://picsum.photos/seed/service_ecomm/800/450'
+    num: '05',
+    title: 'CAMPAIGNS & ACTIVATIONS',
+    tagline: 'Ideas that move from the brief into culture.',
+    desc: 'Integrated campaign moments, product launches, influencer matchmaking, and experiential stunts that spark real-world conversation.',
+    tags: ['Product Launches', 'Influencer Seeding', 'Experiential Drops', 'Integrated Activations'],
   },
 ];
 
-function ServiceCard({ svc, index }) {
-  const [hovered, setHovered] = useState(false);
+function ServiceRow({ svc, index }) {
+  const [expanded, setExpanded] = useState(index === 0);
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-
-  /* Stagger: col 0 → delay 0, col 1 → delay 0.12s, col 2 → delay 0.24s */
-  const col = index % 3;
-  const staggerDelay = col * 0.12 + Math.floor(index / 3) * 0.06;
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 60, scale: 0.94 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{
-        duration: 0.75,
-        delay: staggerDelay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="service-card glass-card noise-card group relative rounded-3xl p-8 cursor-none
-        overflow-hidden flex flex-col justify-between">
-
-      {/* Animated top border - Funky Brand Gradient */}
-      <motion.div
-        className="absolute top-0 left-0 h-[2.5px] bg-gradient-to-r from-[#EF7722] via-[#FAA533] to-[#0BA6DF]"
-        initial={{ width: '0%' }}
-        animate={{ width: hovered ? '100%' : '0%' }}
-        transition={{ duration: 0.45, ease: [0.16,1,0.3,1] }}
-      />
-
-      <div>
-        {/* Number & Tag */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="service-num text-[0.68rem] font-bold tracking-widest text-[#EF7722] bg-[#EF7722]/10 border border-[#EF7722]/20 px-3 py-1 rounded-full">
+      initial={{ opacity: 0, y: 25 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      className="border-b border-[#111111]/15 py-6 sm:py-8 md:py-10 transition-colors group cursor-pointer"
+      onClick={() => setExpanded(!expanded)}
+    >
+      <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-3 sm:gap-4 md:gap-8">
+        {/* Left: Number + Title */}
+        <div className="flex items-baseline gap-4 sm:gap-6 md:gap-10">
+          <span className="font-mono text-xs sm:text-sm md:text-base font-bold text-[#2563EB] tracking-widest shrink-0">
             {svc.num}
+          </span>
+          <div>
+            <h3 className="text-xl sm:text-2xl md:text-4xl font-black text-[#111111] uppercase tracking-tight group-hover:text-[#2563EB] transition-colors">
+              {svc.title}
+            </h3>
+            <p className="text-[#111111]/70 text-xs sm:text-sm md:text-base font-medium mt-1">
+              {svc.tagline}
+            </p>
           </div>
         </div>
 
-        <h3 className="text-[1.35rem] font-bold tracking-tight mb-2 leading-tight text-black">
-          {svc.title}
-        </h3>
-        <p className="text-smoke text-sm italic mb-6">{svc.tagline}</p>
-
-        <ul className="space-y-2 mb-8">
-          {svc.tags.map((t, ti) => (
-            <motion.li
-              key={t}
-              initial={{ opacity: 0, x: -10 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{
-                duration: 0.4,
-                delay: staggerDelay + 0.25 + ti * 0.06,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="text-[0.78rem] text-black/70 flex items-center gap-2 font-medium"
-            >
-              <span className="w-3 h-px bg-[#0BA6DF]/60 inline-block" />
-              {t}
-            </motion.li>
-          ))}
-        </ul>
+        {/* Right: Expand Toggle Indicator */}
+        <div className="flex items-center gap-4 self-end md:self-auto mt-2 md:mt-0">
+          <span className="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#111111]/50 group-hover:text-[#2563EB]">
+            {expanded ? 'LESS —' : 'MORE +'}
+          </span>
+        </div>
       </div>
 
-      {/* Visual */}
-      <motion.div
-        className="w-full aspect-video rounded-xl overflow-hidden relative border border-black/10"
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{
-          duration: 0.6,
-          delay: staggerDelay + 0.3,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
-        <img
-          src={svc.img}
-          alt={svc.title}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500" />
-      </motion.div>
+      {/* Expanded Details */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden pt-6 pl-0 md:pl-16"
+          >
+            <p className="text-base text-[#111111]/80 max-w-2xl leading-relaxed mb-6 font-medium">
+              {svc.desc}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {svc.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-white border border-[#111111]/10 text-[#111111] text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -130,61 +113,48 @@ export default function Services({ hideHeader = false }) {
   const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
 
   return (
-    <section id="services" className="py-[120px] border-b border-black/10 bg-white/10 backdrop-blur-sm relative z-10">
-      <BackgroundShapes variant="services" />
-      <div className="max-w-[1360px] mx-auto px-8 md:px-12">
-
-        {/* Header */}
+    <section id="services" className="py-16 md:py-24 bg-[#BFE9FF] relative z-10">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12">
         {!hideHeader && (
-        <motion.div ref={ref}
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16,1,0.3,1] }}
-          className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-          <div>
-            <ScrollFloat
-              animationDuration={3}
-              textClassName="text-[clamp(2.8rem,5vw,5.5rem)] font-black leading-[1.02] tracking-tight text-black"
-            >
-              Pick your
-            </ScrollFloat>
-            <ScrollFloat
-              animationDuration={3}
-              textClassName="text-[clamp(2.8rem,5vw,5.5rem)] font-extralight italic text-black/70 leading-[1.02] tracking-tight"
-            >
-              blend.
-            </ScrollFloat>
-          </div>
-
-          {/* Fun badge */}
-          <div className="w-28 h-28 rounded-full glass-panel flex items-center
-            justify-center animate-spin-slow shrink-0 self-start md:self-auto shadow-md">
-            <span className="text-[0.42rem] tracking-[0.16em] text-black/60 uppercase text-center leading-loose px-2 font-bold">
-              SIX BLENDS · SIX BLENDS · SIX BLENDS ·
-            </span>
-          </div>
-        </motion.div>
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-[#111111]/15 pb-8"
+          >
+            <div>
+              <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-3">
+                CAPABILITIES
+              </p>
+              <div className="text-[clamp(2.5rem,5.5vw,5rem)] font-black leading-[0.96] tracking-[-0.03em] uppercase">
+                <ScrollFloat textClassName="text-[#111111] font-black" animationDuration={1.6} stagger={0.02}>
+                  WHAT WE DO BEST
+                </ScrollFloat>
+              </div>
+            </div>
+            <p className="text-[#111111]/75 text-base md:text-lg max-w-md font-medium">
+              From the first thought to the final execution, we bring ideas to life through strategy, design and marketing.
+            </p>
+          </motion.div>
         )}
 
-        {/* Bento-style grid */}
-        <div className="bento-grid mb-20">
-          {services.map((s, i) => <ServiceCard key={s.num} svc={s} index={i} />)}
+        {/* Numbered Services Accordion List */}
+        <div className="border-t border-[#111111]/15 mb-16">
+          {services.map((s, i) => (
+            <ServiceRow key={s.num} svc={s} index={i} />
+          ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16,1,0.3,1] }}>
-            <a href="mailto:hello@filtercoffeeco.in"
-              className="mag-btn border border-black bg-black text-white text-[0.78rem] font-black
-                tracking-widest uppercase px-12 py-5 cursor-none rounded-full shadow-lg">
-              <span>LET'S GET BREWING</span>
-              <span className="ml-2">→</span>
-            </a>
-          </motion.div>
+        {/* Bottom CTA Button */}
+        <div className="text-center pt-8">
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 bg-[#111111] hover:bg-[#2563EB] text-white text-[0.78rem] font-black tracking-[0.16em] uppercase px-9 py-4 rounded-full transition-all shadow-md hover:scale-105 active:scale-95"
+          >
+            <span>LET'S TALK ABOUT YOUR PROJECT</span>
+            <span className="text-sm">↗</span>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 40px; background: #FFFFFF; font-family: sans-serif; }
+  .box { width: 600px; margin-bottom: 30px; border: 1px solid #ddd; padding: 10px; }
+  img { width: 100%; display: block; }
+  svg { width: 100%; display: block; }
+</style>
+</head>
+<body>
+  <h2>1. Original PNG</h2>
+  <div class="box">
+    <img src="public/images/fcc-trademark-logo.png" />
+  </div>
+
+  <h2>2. Vector SVG (fill)</h2>
+  <div class="box">
+    <img src="public/images/fcc-trademark-vector.svg" />
+  </div>
+
+  <h2>3. Vector SVG (outline only)</h2>
+  <div class="box">
+    <svg viewBox="0 0 1024 110" fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <use href="public/images/fcc-trademark-vector.svg#filter-word" />
+      <use href="public/images/fcc-trademark-vector.svg#coffee-word" />
+      <use href="public/images/fcc-trademark-vector.svg#co-word" />
+    </svg>
+  </div>
+</body>
+</html>

@@ -1,6 +1,5 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import BackgroundShapes from './BackgroundShapes';
 import ScrollFloat from './ScrollFloat';
 
 const teamRoles = [
@@ -47,10 +46,13 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 80, scale: 0.88, rotateX: 8 },
+  hidden: { opacity: 0, y: 70, scale: 0.9, rotateX: 6 },
   visible: {
-    opacity: 1, y: 0, scale: 1, rotateX: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -58,14 +60,10 @@ function TeamCard({ role, img }) {
   return (
     <motion.div
       variants={cardVariants}
-      className="flex flex-col items-center rounded-2xl overflow-hidden group cursor-none"
-      style={{
-        background: 'rgba(255, 210, 190, 0.18)',
-        border: '1px solid rgba(40, 0, 73, 0.12)',
-        backdropFilter: 'blur(4px)',
-      }}
+      whileHover={{ y: -6, boxShadow: '0 16px 32px rgba(37,99,235,0.12)', borderColor: '#2563EB' }}
+      className="flex flex-col items-center rounded-2xl overflow-hidden group bg-white border border-[#111111]/10 shadow-sm transition-all duration-300"
     >
-      <div className="w-full aspect-square relative overflow-hidden">
+      <div className="w-full aspect-square relative overflow-hidden bg-[#F7F5EF]">
         <img
           src={img}
           alt={role}
@@ -75,7 +73,7 @@ function TeamCard({ role, img }) {
         />
         <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-400" />
       </div>
-      <span className="text-[0.6rem] font-black tracking-[0.2em] uppercase text-[#280049] py-4 px-2 text-center">
+      <span className="text-[0.62rem] font-black tracking-[0.2em] uppercase text-[#111111] py-4 px-2 text-center group-hover:text-[#2563EB] transition-colors">
         {role}
       </span>
     </motion.div>
@@ -84,20 +82,21 @@ function TeamCard({ role, img }) {
 
 export default function Team() {
   const gridRef = useRef(null);
-  const isInView = useInView(gridRef, { once: true, margin: '-80px 0px' });
+  const isInView = useInView(gridRef, { once: true, margin: '-60px 0px' });
 
   return (
-    <section id="team" className="py-[120px] border-b border-[#280049]/15 bg-transparent relative z-10">
-      <BackgroundShapes variant="team" />
-      <div className="max-w-[1360px] mx-auto px-8 md:px-12">
-
+    <section id="team" className="py-20 md:py-28 bg-[#F7F5EF] relative z-10 border-b border-[#111111]/10">
+      <div className="max-w-[1360px] mx-auto px-6 md:px-12">
         {/* Team Intro */}
         <div className="text-center mb-16">
+          <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-3">
+            THE MINDS
+          </p>
           <ScrollFloat
             containerClassName="text-center"
-            textClassName="text-[clamp(2.8rem,5.5vw,5.5rem)] font-black leading-[0.98] tracking-[-0.035em] uppercase text-[#280049]"
-            animationDuration={1.8}
-            stagger={0.03}
+            textClassName="text-[clamp(2.5rem,5.5vw,5rem)] font-black leading-[0.98] tracking-[-0.035em] uppercase text-[#111111]"
+            animationDuration={1.6}
+            stagger={0.02}
           >
             MEET THE TEAM
           </ScrollFloat>
@@ -109,24 +108,24 @@ export default function Team() {
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.5 }}
-                className={`text-[clamp(1.05rem,1.9vw,1.7rem)] font-light tracking-tight
-                  ${i === teamRoles.length - 1 ? 'italic font-bold text-[#280049]' : 'text-[#280049]/70'} px-2`}
+                transition={{ delay: i * 0.06, duration: 0.4 }}
+                className={`text-[clamp(1.05rem,1.9vw,1.6rem)] font-light tracking-tight
+                  ${i === teamRoles.length - 1 ? 'italic font-black text-[#2563EB]' : 'text-[#111111]/70'} px-2`}
               >
                 {r}
               </motion.span>
             ))}
           </div>
-          <p className="text-[#280049]/70 text-base md:text-lg max-w-lg mx-auto leading-relaxed font-medium">
+          <p className="text-[#111111]/70 text-base md:text-lg max-w-lg mx-auto leading-relaxed font-medium">
             Different roles. Different playlists. Different coffee orders.<br />
-            <strong className="text-[#280049] font-semibold">One shared obsession: making good work.</strong>
+            <strong className="text-[#111111] font-bold">One shared obsession: making good work.</strong>
           </p>
         </div>
 
         {/* Team Cards — staggered scroll-reveal */}
         <motion.div
           ref={gridRef}
-          className="grid grid-cols-2 md:grid-cols-6 gap-4"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
@@ -135,7 +134,6 @@ export default function Team() {
             <TeamCard key={role} role={role} img={img} />
           ))}
         </motion.div>
-
       </div>
     </section>
   );

@@ -1,4 +1,17 @@
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import Logo from './Logo';
+
 export default function Footer() {
+  const navLinks = [
+    { label: 'Work', to: '/work' },
+    { label: 'About', to: '/about' },
+    { label: 'Services', to: '/services' },
+    { label: 'Clients', to: '/clients' },
+    { label: 'Gallery', to: '/gallery' },
+    { label: 'Contact', to: '/contact' },
+  ];
+
   const socials = [
     {
       label: 'Instagram',
@@ -29,82 +42,82 @@ export default function Footer() {
   };
 
   return (
-    <footer
-      style={{ fontFamily: "'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" }}
-      className="bg-[#F94500] text-[#280049] relative z-10 overflow-hidden border-t border-[#280049]/10"
-    >
-      {/* ── Signature Brand Accent Hairline (#280049 -> #FFA02E -> #F94500) ── */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-[#280049] via-[#FFA02E] to-[#F94500]" />
+    <footer className="bg-[#111111] text-white relative z-10 overflow-hidden -mt-px">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pt-14 sm:pt-16 pb-10 sm:pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 mb-12 sm:mb-16">
+          {/* Brand Col */}
+          <div className="md:col-span-5">
+            <Link to="/" className="select-none mb-4 group inline-block">
+              <Logo
+                size="text-2xl md:text-3xl"
+                className="text-white group-hover:text-[#BFE9FF] transition-colors"
+              />
+            </Link>
+            <p className="text-white/60 text-sm md:text-base max-w-sm leading-relaxed font-medium">
+              YOUR BRAND WAS NEVER MEANT TO FIT IN.
+            </p>
+          </div>
 
-      {/* ── Ambient Glows ── */}
-      <div
-        className="pointer-events-none absolute -bottom-24 -left-24 w-80 h-80 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(41,0,75,0.25) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,160,46,0.3) 0%, transparent 70%)',
-        }}
-      />
+          {/* Quick Nav Links */}
+          <div className="md:col-span-4">
+            <p className="text-[0.68rem] font-bold tracking-[0.22em] uppercase text-white/40 mb-4">
+              NAVIGATION
+            </p>
+            <div className="grid grid-cols-2 gap-2.5">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="text-xs sm:text-sm font-semibold text-white/70 hover:text-white transition-colors py-1 inline-block"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
 
-      {/* ── Top Pill Badge ── */}
-      <div className="flex justify-center pt-14 pb-4 px-4">
-        <button
-          onClick={scrollToTop}
-          aria-label="Back to top"
-          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#280049]/20 bg-white/90 hover:bg-[#280049] hover:text-[#F94500] text-[#280049] text-[11px] font-bold tracking-widest uppercase backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-105 active:scale-95"
-        >
-          <span>FILTER COFFEE CO.</span>
-          <span className="text-xs">↗</span>
-        </button>
-      </div>
+          {/* Socials & Back to Top */}
+          <div className="md:col-span-3 flex flex-col items-start md:items-end justify-between">
+            <div>
+              <p className="text-[0.68rem] font-bold tracking-[0.22em] uppercase text-white/40 mb-4 md:text-right">
+                CONNECT
+              </p>
+              <div className="flex items-center gap-3 mb-6">
+                {socials.map((s) => (
+                  <motion.a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    whileHover={{ scale: 1.1, backgroundColor: '#2563EB', color: '#ffffff' }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white transition-colors"
+                  >
+                    {s.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </div>
 
-      {/* ── 3-Line Stacked Wordmark in #280049 on #F94500 ── */}
-      <div className="overflow-hidden px-4 md:px-8 pt-2 pb-8 select-none">
-        <div
-          className="font-black leading-[0.82] tracking-[-0.04em] text-[#280049] w-full text-center flex flex-col items-center justify-center uppercase select-none"
-          style={{
-            fontSize: 'clamp(5rem, 18vw, 19rem)',
-            fontWeight: 900,
-          }}
-        >
-          <span className="block transform hover:scale-[1.01] transition-transform duration-300">
-            FILTER
-          </span>
-          <span className="block transform hover:scale-[1.01] transition-transform duration-300">
-            COFFEE
-          </span>
-          <span className="block transform hover:scale-[1.01] transition-transform duration-300">
-            CO.
-          </span>
-        </div>
-      </div>
-
-      {/* ── Divider ── */}
-      <div className="border-t border-[#280049]/15 mx-6 md:mx-12" />
-
-      {/* ── Bottom Bar: Socials & Brand Copyright ── */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 md:px-12 py-6">
-        <p className="text-[11px] font-mono font-bold tracking-widest uppercase text-[#280049]/80 order-2 sm:order-1">
-          © 2026 FILTER COFFEE CO. • WE MAKE BRANDS ADDICTIVE
-        </p>
-
-        <div className="flex items-center gap-4 order-1 sm:order-2">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              className="text-[#280049] hover:text-[#F94500] hover:bg-[#280049] p-2 rounded-full transition-all duration-200 hover:scale-110"
+            <button
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-white/60 hover:text-white transition-colors py-2"
             >
-              {s.icon}
-            </a>
-          ))}
+              <span>BACK TO TOP</span>
+              <span>↑</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <p className="text-[10px] sm:text-[11px] font-mono tracking-wider text-white/40">
+            © 2026 FILTER COFFEE co. • INDEPENDENT CREATIVE & MARKETING AGENCY
+          </p>
+          <p className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase text-white/40">
+            WE MAKE BRANDS ADDICTIVE.
+          </p>
         </div>
       </div>
     </footer>
