@@ -3,15 +3,6 @@ import { motion } from 'framer-motion';
 import Logo from './Logo';
 
 export default function Footer() {
-  const navLinks = [
-    { label: 'Work', to: '/work' },
-    { label: 'About', to: '/about' },
-    { label: 'Services', to: '/services' },
-    { label: 'Clients', to: '/clients' },
-    { label: 'Gallery', to: '/gallery' },
-    { label: 'Contact', to: '/contact' },
-  ];
-
   const socials = [
     {
       label: 'Instagram',
@@ -37,16 +28,12 @@ export default function Footer() {
     },
   ];
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer className="bg-[#111111] text-white relative z-10 overflow-hidden -mt-px">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pt-14 sm:pt-16 pb-10 sm:pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 mb-12 sm:mb-16">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 md:gap-12 mb-12 sm:mb-16">
           {/* Brand Col */}
-          <div className="md:col-span-5">
+          <div>
             <Link to="/" className="select-none mb-4 group inline-block">
               <Logo
                 size="text-2xl md:text-3xl"
@@ -58,55 +45,27 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Nav Links */}
-          <div className="md:col-span-4">
+          {/* Socials */}
+          <div>
             <p className="text-[0.68rem] font-bold tracking-[0.22em] uppercase text-white/40 mb-4">
-              NAVIGATION
+              CONNECT
             </p>
-            <div className="grid grid-cols-2 gap-2.5">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="text-xs sm:text-sm font-semibold text-white/70 hover:text-white transition-colors py-1 inline-block"
+            <div className="flex items-center gap-3">
+              {socials.map((s) => (
+                <motion.a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  whileHover={{ scale: 1.1, backgroundColor: '#2563EB', color: '#ffffff' }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white transition-colors"
                 >
-                  {link.label}
-                </Link>
+                  {s.icon}
+                </motion.a>
               ))}
             </div>
-          </div>
-
-          {/* Socials & Back to Top */}
-          <div className="md:col-span-3 flex flex-col items-start md:items-end justify-between">
-            <div>
-              <p className="text-[0.68rem] font-bold tracking-[0.22em] uppercase text-white/40 mb-4 md:text-right">
-                CONNECT
-              </p>
-              <div className="flex items-center gap-3 mb-6">
-                {socials.map((s) => (
-                  <motion.a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    whileHover={{ scale: 1.1, backgroundColor: '#2563EB', color: '#ffffff' }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white transition-colors"
-                  >
-                    {s.icon}
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={scrollToTop}
-              className="inline-flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-white/60 hover:text-white transition-colors py-2"
-            >
-              <span>BACK TO TOP</span>
-              <span>↑</span>
-            </button>
           </div>
         </div>
 
