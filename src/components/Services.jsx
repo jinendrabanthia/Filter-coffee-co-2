@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -61,9 +61,9 @@ function ServiceCard({ svc, index }) {
       className="service-card glass-card noise-card group relative rounded-3xl p-8 cursor-none
         overflow-hidden flex flex-col justify-between">
 
-      {/* Animated top border */}
+      {/* Animated top border - Funky Brand Gradient */}
       <motion.div
-        className="absolute top-0 left-0 h-[2px] bg-black"
+        className="absolute top-0 left-0 h-[2.5px] bg-gradient-to-r from-[#EF7722] via-[#FAA533] to-[#0BA6DF]"
         initial={{ width: '0%' }}
         animate={{ width: hovered ? '100%' : '0%' }}
         transition={{ duration: 0.45, ease: [0.16,1,0.3,1] }}
@@ -72,7 +72,7 @@ function ServiceCard({ svc, index }) {
       <div>
         {/* Number & Tag */}
         <div className="flex items-center justify-between mb-6">
-          <div className="service-num text-[0.68rem] font-bold tracking-widest text-black/60 glass-pill px-3 py-1 rounded-full">
+          <div className="service-num text-[0.68rem] font-bold tracking-widest text-[#EF7722] bg-[#EF7722]/10 border border-[#EF7722]/20 px-3 py-1 rounded-full">
             {svc.num}
           </div>
         </div>
@@ -95,7 +95,7 @@ function ServiceCard({ svc, index }) {
               }}
               className="text-[0.78rem] text-black/70 flex items-center gap-2 font-medium"
             >
-              <span className="w-3 h-px bg-black/30 inline-block" />
+              <span className="w-3 h-px bg-[#0BA6DF]/60 inline-block" />
               {t}
             </motion.li>
           ))}
@@ -142,9 +142,6 @@ export default function Services({ hideHeader = false }) {
           transition={{ duration: 0.8, ease: [0.16,1,0.3,1] }}
           className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
-            <p className="text-[0.68rem] font-bold tracking-widest2 uppercase text-smoke mb-4">
-              WHAT'S BREWING?
-            </p>
             <ScrollFloat
               animationDuration={3}
               textClassName="text-[clamp(2.8rem,5vw,5.5rem)] font-black leading-[1.02] tracking-tight text-black"

@@ -10,7 +10,7 @@ const AboutPage           = lazy(() => import('./pages/AboutPage'));
 const ClientsPage         = lazy(() => import('./pages/ClientsPage'));
 const WorkRouteDispatcher = lazy(() => import('./pages/WorkRouteDispatcher'));
 
-const PageLoader = () => <div className="min-h-[60vh] bg-[#f5f5f0]" />;
+const PageLoader = () => <div className="min-h-[60vh] bg-[#F94500]" />;
 
 export default function App() {
   return (

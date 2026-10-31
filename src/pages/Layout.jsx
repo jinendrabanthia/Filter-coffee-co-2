@@ -14,7 +14,7 @@ export default function Layout() {
   }, [pathname]);
 
   return (
-    <div className="grain bg-transparent text-black min-h-screen relative selection:bg-black selection:text-white">
+    <div className="grain bg-transparent text-[#280049] min-h-screen relative selection:bg-[#280049] selection:text-[#F94500]">
       <AnimatedBackground />
 
       <Cursor />

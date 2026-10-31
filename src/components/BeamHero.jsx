@@ -19,8 +19,8 @@ import ParticleText from './ParticleText';
  */
 
 const PALETTES = [
-  // 0: Cyber Sunrise (Cyan, Hot Pink, Sunset Orange, Amber Gold)
-  [[20, 207, 233], [247, 49, 165], [255, 119, 61], [255, 209, 83]],
+  // 0: Signature Filter Coffee (Orange #EF7722, Amber #FAA533, Electric Cyan #0BA6DF, Off-White #EBEBEB)
+  [[239, 119, 34], [250, 165, 51], [11, 166, 223], [235, 235, 235]],
   // 1: Electric Prism (Royal Indigo, Sky Aqua, Rose Magenta, Tangerine)
   [[106, 110, 255], [42, 215, 229], [255, 66, 163], [255, 162, 72]],
   // 2: Sunset Neon (Deep Pink, Coral, Warm Sun, Electric Mint)

@@ -6,9 +6,7 @@ import { useRef, useState, useEffect } from 'react';
  */
 export default function Hero() {
   const videoRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showMuteButton, setShowMuteButton] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
@@ -62,7 +60,6 @@ export default function Hero() {
         .then(() => {
           setIsPlaying(true);
           setVideoLoaded(true);
-          setTimeout(() => setShowMuteButton(true), 800);
         })
         .catch(() => {
           // Autoplay prevented by browser policy; stays ready on poster
@@ -79,15 +76,6 @@ export default function Hero() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
-
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (video) {
-      const newMuted = !isMuted;
-      video.muted = newMuted;
-      setIsMuted(newMuted);
-    }
-  };
 
   return (
     <section
@@ -139,36 +127,6 @@ export default function Hero() {
           <source src="/videos/homepage/bg%20video%20homepage.mp4" type="video/mp4" />
         </video>
       </div>
-
-
-
-      {/* Mute/Unmute Button - Bottom Right */}
-      {showMuteButton && (
-        <button
-          onClick={toggleMute}
-          aria-label={isMuted ? "Unmute video" : "Mute video"}
-          aria-pressed={!isMuted}
-          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/20 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
-          style={{
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-          }}
-        >
-          {!isMuted ? (
-            <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-            </svg>
-          ) : (
-            <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.142 16.142a9 9 0 01-12.728 0M5 5a9 9 0 0112.728 0m0 0l-2.829 2.829M18.536 13.464a5 5 0 010 7.072m0 0l-2.829 2.829M13.765 8.235a1 1 0 011.414 1.414l-2.829 2.829M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-              <line x1="1" y1="1" x2="23" y2="23" strokeLinecap="round" />
-            </svg>
-          )}
-          {/* Tooltip */}
-          <span className="absolute bottom-full right-0 mb-2 px-2 py-1 text-xs font-medium text-white bg-black/80 backdrop-blur-md rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-            {isMuted ? 'Unmute' : 'Mute'}
-          </span>
-        </button>
-      )}
     </section>
   );
 }

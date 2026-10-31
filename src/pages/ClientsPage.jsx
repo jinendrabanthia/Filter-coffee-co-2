@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import ScrollFloat from '../components/ScrollFloat';
 import ScrollReveal from '../components/ScrollReveal';
 import BackgroundShapes from '../components/BackgroundShapes';
 
@@ -123,11 +124,11 @@ function LogoCard({ brand }) {
       ref={cardRef}
       variants={cardVariants}
       whileHover={{
-        scale: 1.06,
+        scale: 1.05,
         zIndex: 20,
-        boxShadow: '0 16px 36px rgba(0,0,0,0.11), 0 2px 8px rgba(0,0,0,0.05)',
-        borderColor: 'rgba(17,17,17,0.35)',
-        backgroundColor: 'rgba(255,255,255,0.95)',
+        boxShadow: '0 16px 36px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.04)',
+        borderColor: 'rgba(17,17,17,0.3)',
+        backgroundColor: '#ffffff',
       }}
       whileTap={{ scale: 0.95 }}
       style={{ rotateX, rotateY, transformPerspective: 900, transformStyle: 'preserve-3d' }}
@@ -192,35 +193,20 @@ export default function ClientsPage() {
     <>
       {/* Page Hero */}
       <section className="relative pt-[140px] pb-[80px] overflow-hidden bg-transparent">
-        <BackgroundShapes variant="clients" />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
         <div className="max-w-[1360px] mx-auto px-8 md:px-12 relative z-10">
-          <div className="flex items-center gap-4 text-[0.7rem] font-bold tracking-widest2 uppercase text-smoke mb-6">
-            <span className="w-10 h-px bg-brand-navy/30 inline-block" />
-            OUR CLIENTS
-          </div>
-          <ScrollReveal
-            baseOpacity={0.1}
-            enableBlur
-            baseRotation={3}
-            blurStrength={4}
-            textClassName="text-[clamp(3rem,7vw,7rem)] font-black leading-[0.95] tracking-[-0.04em] mb-6 text-brand-navy"
+          <ScrollFloat
+            textClassName="text-[clamp(2.2rem,4.2vw,4rem)] font-bold leading-[1.08] tracking-tight mb-6 text-[#280049]"
+            animationDuration={1.8}
+            stagger={0.025}
           >
             OUR CLIENTS
-          </ScrollReveal>
+          </ScrollFloat>
           <ScrollReveal
             baseOpacity={0.1}
             enableBlur
             baseRotation={0}
             blurStrength={2}
-            textClassName="text-smoke text-lg max-w-xl leading-relaxed font-medium"
+            textClassName="text-[#280049]/85 text-lg max-w-xl leading-relaxed font-medium"
           >
             From skincare shelves to social feeds, we've partnered with brands to keep conversations brewing.
           </ScrollReveal>

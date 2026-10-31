@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import BackgroundShapes from '../components/BackgroundShapes';
+import LifeAndCulture from '../components/LifeAndCulture';
 
 /* ─── Image pool — 5 columns × 6 unique images each ───────────────────────── */
 const COL_IMAGES = [
@@ -99,7 +100,7 @@ function GalleryColumn({ images, goUp, speed }) {
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 export default function GalleryPage() {
   return (
-    <div className="min-h-screen bg-brand-light relative overflow-hidden">
+    <div className="min-h-screen bg-transparent relative overflow-hidden">
       <BackgroundShapes variant="gallery" />
 
       {/* ── Hero Header ── */}
@@ -141,11 +142,11 @@ export default function GalleryPage() {
         {/* Fade edges top & bottom */}
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-20"
-          style={{ height: '60px', background: 'linear-gradient(to bottom, #EAE9E6 0%, transparent 100%)' }}
+          style={{ height: '60px', background: 'linear-gradient(to bottom, #F94500 0%, transparent 100%)' }}
         />
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 z-20"
-          style={{ height: '80px', background: 'linear-gradient(to top, #EAE9E6 0%, transparent 100%)' }}
+          style={{ height: '80px', background: 'linear-gradient(to top, #F94500 0%, transparent 100%)' }}
         />
 
         <div
@@ -162,6 +163,9 @@ export default function GalleryPage() {
           ))}
         </div>
       </motion.section>
+
+      {/* ── Life and Culture Section (Exclusive to Gallery Page) ── */}
+      <LifeAndCulture />
     </div>
   );
 }

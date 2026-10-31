@@ -13,10 +13,9 @@ const ScrollFloat = ({
   scrollContainerRef,
   containerClassName = '',
   textClassName = '',
-  animationDuration = 2,
-  ease = 'back.out(1.7)',
-  scrollStart = 'top 95%',
-  scrollEnd = 'top 35%',
+  animationDuration = 1.4,
+  ease = 'power3.out',
+  scrollStart = 'top 90%',
   stagger = 0.04,
 }) => {
   const containerRef = useRef(null);
@@ -38,37 +37,30 @@ const ScrollFloat = ({
     const ctx = gsap.context(() => {
       const charElements = el.querySelectorAll('.char');
 
-      gsap.fromTo(
-        charElements,
-        {
-          opacity: 0,
-          yPercent: 30,
-          scaleY: 1,
-          scaleX: 1,
-          transformOrigin: '50% 100%',
+      // Set initial hidden state
+      gsap.set(charElements, { opacity: 0, yPercent: 40, transformOrigin: '50% 100%' });
+
+      // Play once when scrolled into view — no scrub, stays visible on scroll back
+      ScrollTrigger.create({
+        trigger: el,
+        scroller,
+        start: scrollStart,
+        onEnter: () => {
+          gsap.to(charElements, {
+            opacity: 1,
+            yPercent: 0,
+            duration: animationDuration,
+            ease,
+            stagger,
+            overwrite: true,
+          });
         },
-        {
-          duration: animationDuration,
-          ease: 'power3.out',
-          opacity: 1,
-          yPercent: 0,
-          scaleY: 1,
-          scaleX: 1,
-          stagger: stagger,
-          scrollTrigger: {
-            trigger: el,
-            scroller,
-            start: scrollStart,
-            end: scrollEnd,
-            scrub: 0.5,
-            fastScrollEnd: true,
-          },
-        }
-      );
+        once: true,
+      });
     }, containerRef);
 
     return () => ctx.revert();
-  }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
+  }, [scrollContainerRef, animationDuration, ease, scrollStart, stagger]);
 
   return (
     <h2 ref={containerRef} className={`scroll-float ${containerClassName}`}>

@@ -24,9 +24,9 @@ export default function Showreel() {
               className="text-[clamp(1.9rem,3.8vw,3.8rem)] font-serif italic font-normal leading-[1.32] tracking-tight text-white mb-2"
             >
               We’re an advertising and social media agency blending{' '}
-              <span className="font-sans not-italic font-black text-brand-yellow">strategy</span>,{' '}
+              <span className="font-sans not-italic font-black text-white">strategy</span>,{' '}
               <span className="font-sans not-italic font-black text-white">creativity</span> and{' '}
-              <span className="font-sans not-italic font-black text-[#f731a5]">culture</span>{' '}
+              <span className="font-sans not-italic font-black text-white">culture</span>{' '}
               to create work that gets seen, shared, saved and remembered.
             </motion.p>
           </div>
@@ -34,7 +34,7 @@ export default function Showreel() {
           {/* ── Subtle Decorative Watermark / Accent in bottom right ── */}
           <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-[2] hidden sm:flex items-center gap-2 text-white/20 select-none">
             <span className="text-[11px] font-mono tracking-widest uppercase">FILTER COFFEE CO.</span>
-            <span className="text-brand-yellow text-xs">✦</span>
+            <span className="text-white/40 text-xs">✦</span>
           </div>
         </div>
       </div>
