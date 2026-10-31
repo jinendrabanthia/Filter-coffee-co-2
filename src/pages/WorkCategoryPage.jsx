@@ -15,7 +15,7 @@ export default function WorkCategoryPage() {
   const allCategoryKeys = Object.keys(WORK_CATEGORIES);
 
   return (
-    <div className="min-h-screen bg-transparent pt-28 pb-20 overflow-hidden relative selection:bg-brand-yellow selection:text-black">
+    <div className="min-h-screen bg-transparent pt-28 pb-20 overflow-hidden relative selection:bg-[#EF7722] selection:text-white">
       <BackgroundShapes variant="work" />
 
       {/* ── Top Navigation Bar: Breadcrumbs & Quick Discipline Switcher ── */}
@@ -24,7 +24,7 @@ export default function WorkCategoryPage() {
           {/* Back breadcrumb */}
           <Link
             to="/work"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-smoke hover:text-black transition-colors group"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-smoke hover:text-[#EF7722] transition-colors group"
           >
             <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
             <span>All Capabilities & Work</span>
@@ -41,8 +41,8 @@ export default function WorkCategoryPage() {
                   to={`/work/${key}`}
                   className={`text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap ${
                     isActive
-                      ? 'bg-black text-white shadow-sm'
-                      : 'bg-white/60 hover:bg-white text-black/70 hover:text-black border border-black/10'
+                      ? 'bg-[#EF7722] text-white shadow-sm shadow-[#EF7722]/30'
+                      : 'bg-white/80 hover:bg-white text-black/70 hover:text-black border border-black/10'
                   }`}
                 >
                   {cat.title}

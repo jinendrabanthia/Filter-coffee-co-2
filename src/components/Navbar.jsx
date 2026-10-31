@@ -100,7 +100,7 @@ export default function Navbar() {
             <div className="flex items-center shrink-0 mr-8">
               <Link
                 to="/"
-                className="font-nunito font-black text-[1.28rem] tracking-[0.08em] text-black shrink-0 hover:opacity-75 transition-opacity flex items-center select-none"
+                className="font-nunito font-black text-[1.28rem] tracking-[0.08em] text-[#280049] shrink-0 hover:opacity-75 transition-opacity flex items-center select-none"
               >
                 <span>FILTER COFFEE</span>
                 <span className="ml-1 text-[0.98rem] opacity-80">co.</span>
@@ -122,7 +122,7 @@ export default function Navbar() {
                 <Link
                   to="/"
                   onClick={handleLogoClick}
-                  className="font-nunito font-black text-[1.24rem] tracking-[0.08em] text-black shrink-0 hover:opacity-75 transition-opacity flex items-center justify-center select-none"
+                  className="font-nunito font-black text-[1.24rem] tracking-[0.08em] text-[#280049] shrink-0 hover:opacity-75 transition-opacity flex items-center justify-center select-none"
                   title="Scroll to top"
                 >
                   <span>FILTER COFFEE</span>
@@ -150,21 +150,24 @@ export default function Navbar() {
               >
                 {/* Desktop Links (Center-aligned) */}
                 <ul className="hidden md:flex items-center justify-center gap-7 lg:gap-9">
-                  {links.map((l) => (
-                    <li key={l.to} className="relative group/item">
-                      <Link
-                        to={l.to}
-                        onClick={(e) => handleNavClick(e, l)}
-                        className={`group flex items-center relative transition-opacity ${
-                          location.pathname === l.to ? 'opacity-100 font-extrabold' : 'opacity-85 hover:opacity-100'
-                        }`}
-                      >
-                        <span className="text-[0.74rem] font-sans font-bold text-brand-navy tracking-[0.18em] uppercase transition-colors group-hover/item:text-brand-yellow leading-tight whitespace-nowrap">
-                          {l.label}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
+                  {links.map((l) => {
+                    const isActive = location.pathname === l.to;
+                    return (
+                      <li key={l.to} className="relative group/item">
+                        <Link
+                          to={l.to}
+                          onClick={(e) => handleNavClick(e, l)}
+                          className={`group flex items-center relative transition-opacity ${
+                            isActive ? 'opacity-100 font-extrabold' : 'opacity-85 hover:opacity-100'
+                          }`}
+                        >
+                          <span className="text-[0.74rem] font-sans font-bold text-[#280049] tracking-[0.18em] uppercase transition-colors leading-tight whitespace-nowrap">
+                            {l.label}
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 {/* Mobile Menu Button */}
@@ -208,7 +211,7 @@ export default function Navbar() {
                   <Link
                     to={l.to}
                     onClick={(e) => handleNavClick(e, l)}
-                    className={`text-base font-semibold text-black transition-colors ${
+                    className={`text-base font-semibold text-[#280049] transition-colors ${
                       location.pathname === l.to ? 'opacity-100 font-bold' : 'opacity-70'
                     }`}
                   >

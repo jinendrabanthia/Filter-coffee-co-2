@@ -12,17 +12,25 @@ export default {
       },
       colors: {
         white:  '#ffffff',
-        black:  '#000000',
+        black:  '#280049',
         ink:    '#ffffff',
         chalk:  '#0a0a0a',
-        smoke:  '#666666',
-        ash:    '#27272a',
-        border: 'rgba(0,0,0,0.08)',
-        // Premium Theme Colors based on reference
-        'brand-yellow': '#FFD400', // Vibrant Whatsyellow yellow
-        'brand-navy': '#111111',   // Deep dark charcoal
-        'brand-cream': '#E5E4E0',
-        'brand-light': '#EAE9E6',
+        smoke:  'rgba(40, 0, 73, 0.85)',
+        ash:    '#280049',
+        border: 'rgba(41, 0, 75, 0.12)',
+        // Brand Palette: Funky, Elegant & Minimalist
+        'brand-orange': '#F94500', // Vibrant Filter Coffee Orange
+        'brand-vermilion': '#F94500',
+        'brand-amber':  '#FAA533', // Sunburst Golden Amber
+        'brand-cream':  '#EBEBEB', // Minimalist Off-White Canvas
+        'brand-blue':   '#0BA6DF', // Electric Sky Cyan Pop
+        'brand-yellow': '#FAA533', // Mapped to Sunburst Amber for existing components
+        'brand-navy':   '#280049', // Deep Midnight Purple text
+        'brand-indigo': '#280049',
+        'brand-purple': '#280049',
+        'brand-light':  '#EBEBEB', // Off-White
+        'brand-theme':  '#F94500', // Primary Theme Lavender Orchid
+        'brand-dark': '#280049',
       },
       letterSpacing: {
         widest2: '0.22em',
