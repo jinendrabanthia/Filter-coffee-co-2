@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './pages/Layout';
 import HomePage from './pages/HomePage';
 
@@ -25,6 +25,7 @@ export default function App() {
         <Route path="/about"    element={<Suspense fallback={<PageLoader />}><AboutPage /></Suspense>} />
         <Route path="/clients"  element={<Suspense fallback={<PageLoader />}><ClientsPage /></Suspense>} />
         <Route path="/contact"  element={<Suspense fallback={<PageLoader />}><ContactPage /></Suspense>} />
+        <Route path="*"         element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );
