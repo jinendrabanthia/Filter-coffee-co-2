@@ -4,6 +4,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import ScrollFloat from '../components/ScrollFloat';
 import LifeAndCulture from '../components/LifeAndCulture';
 import DriftWall from '../components/DriftWall';
+import FadeSlideSection from '../components/FadeSlideSection';
 
 /* ─── Flat image list — all 30 shots fed into DriftWall ───────────────────── */
 const GALLERY_ITEMS = [
@@ -65,7 +66,7 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-[#F7F5EF] relative overflow-hidden text-[#111111]">
       {/* Hero Header */}
-      <section className="relative pt-[120px] sm:pt-[140px] pb-8 sm:pb-10 px-4 sm:px-6 md:px-12 z-10 border-b border-[#111111]/10">
+      <FadeSlideSection className="relative pt-[120px] sm:pt-[140px] pb-8 sm:pb-10 px-4 sm:px-6 md:px-12 z-10 border-b border-[#111111]/10">
         <div className="max-w-[1360px] mx-auto">
           <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-3 sm:mb-4">
             THE REEL
@@ -87,13 +88,12 @@ export default function GalleryPage() {
             A glimpse into the work, the craft, and the stories we help brands tell.
           </ScrollReveal>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* DriftWall Gallery — responsive dark full-bleed */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      <FadeSlideSection
+        yOffset={30}
+        duration={0.9}
         className="relative z-10 w-full bg-[#0a0a0a] overflow-hidden h-[70vh] sm:h-[80vh] md:h-screen"
       >
         <DriftWall
@@ -119,7 +119,7 @@ export default function GalleryPage() {
           grayscale={false}
           overlayColor="#0a0a0a"
         />
-      </motion.section>
+      </FadeSlideSection>
 
       {/* Life and Culture Section */}
       <LifeAndCulture />

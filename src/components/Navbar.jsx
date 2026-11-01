@@ -31,6 +31,7 @@ export default function Navbar() {
 
   const handleLogoClick = () => {
     window.dispatchEvent(new CustomEvent('fcc_replay_intro'));
+    window.dispatchEvent(new CustomEvent('fcc_replay_loader'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setOpen(false);
   };

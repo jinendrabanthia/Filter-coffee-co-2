@@ -18,7 +18,14 @@ export default function Contact() {
   };
 
   return (
-    <section className="bg-[#BFE9FF] min-h-[90vh] py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-[#111111] relative overflow-hidden">
+    <motion.section
+      id="contact"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+      className="bg-[#BFE9FF] min-h-[90vh] py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-[#111111] relative overflow-hidden"
+    >
       <div className="max-w-[1360px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Heading & Info */}
@@ -195,6 +202,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

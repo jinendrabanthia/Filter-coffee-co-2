@@ -96,7 +96,13 @@ export default function LifeAndCulture() {
   };
 
   return (
-    <section className="relative z-10 w-full overflow-hidden my-12 md:my-16">
+    <motion.section
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+      className="relative z-10 w-full overflow-hidden my-12 md:my-16"
+    >
       <div
         className="w-full relative py-16 md:py-24 px-4 sm:px-8 md:px-12 bg-[#F7F5EF] border-t border-b border-[#111111]/10"
       >
@@ -276,6 +282,6 @@ export default function LifeAndCulture() {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 }

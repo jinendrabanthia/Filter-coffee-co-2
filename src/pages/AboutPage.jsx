@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ScrollFloat from '../components/ScrollFloat';
 import Team from '../components/Team';
+import FadeSlideSection from '../components/FadeSlideSection';
 
 export default function AboutPage() {
   return (
     <div className="bg-[#F7F5EF] min-h-screen text-[#111111]">
       {/* Page Hero */}
-      <section className="relative pt-[140px] pb-[80px] overflow-hidden bg-[#F7F5EF] border-b border-[#111111]/10">
+      <FadeSlideSection className="relative pt-[140px] pb-[80px] overflow-hidden bg-[#F7F5EF] border-b border-[#111111]/10">
         <div className="max-w-[1360px] mx-auto px-6 md:px-12 relative z-10">
           <div className="max-w-4xl">
             <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-4">
@@ -92,10 +93,10 @@ export default function AboutPage() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* Values Strip — pure solid black typography */}
-      <section className="bg-[#2563EB] text-[#111111] py-16 px-6 md:px-12 border-b border-[#111111]/10">
+      <FadeSlideSection className="bg-[#2563EB] text-[#111111] py-16 px-6 md:px-12 border-b border-[#111111]/10">
         <div className="max-w-[1360px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div
@@ -147,13 +148,13 @@ export default function AboutPage() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* Team Section */}
       <Team />
 
       {/* Closing Transition Strip */}
-      <section className="bg-[#111111] py-16 px-6 md:px-12 text-center text-white border-t border-[#111111] relative z-10">
+      <FadeSlideSection className="bg-[#111111] py-16 px-6 md:px-12 text-center text-white border-t border-[#111111] relative z-10">
         <div className="max-w-2xl mx-auto">
           <p className="text-[#BFE9FF] text-[0.7rem] font-bold tracking-[0.22em] uppercase mb-4">
             THE NEXT STEP
@@ -169,7 +170,7 @@ export default function AboutPage() {
             <span className="text-sm">→</span>
           </Link>
         </div>
-      </section>
+      </FadeSlideSection>
     </div>
   );
 }

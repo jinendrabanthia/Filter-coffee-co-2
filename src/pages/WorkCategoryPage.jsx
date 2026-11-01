@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { WORK_CATEGORIES } from '../data/workCategories';
+import FadeSlideSection from '../components/FadeSlideSection';
 
 export default function WorkCategoryPage() {
   const { slug } = useParams();
@@ -15,7 +16,7 @@ export default function WorkCategoryPage() {
   return (
     <div className="min-h-screen bg-[#F7F5EF] pt-28 pb-20 overflow-hidden relative text-[#111111] selection:bg-[#2563EB] selection:text-white">
       {/* ── Top Navigation Bar: Breadcrumbs & Quick Discipline Switcher ── */}
-      <section className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pt-4 pb-8">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pt-4 pb-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#111111]/10 pb-6">
           {/* Back breadcrumb */}
           <Link
@@ -47,10 +48,10 @@ export default function WorkCategoryPage() {
             })}
           </div>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Main Hero Section ── */}
-      <section className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pt-6 pb-16">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pt-6 pb-16">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
           <div className="lg:col-span-8">
             <motion.h1
@@ -96,10 +97,10 @@ export default function WorkCategoryPage() {
             </Link>
           </motion.div>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Key Discipline Stats ── */}
-      <section className="max-w-[1360px] mx-auto px-6 md:px-12 pb-16">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-6 md:px-12 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {category.stats.map((st, i) => (
             <motion.div
@@ -118,10 +119,10 @@ export default function WorkCategoryPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Widescreen Feature Showcase Hero Visual ── */}
-      <section className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           animate={{ opacity: 1, y: 0 }}
@@ -151,10 +152,10 @@ export default function WorkCategoryPage() {
             </div>
           </div>
         </motion.div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Capabilities ("What We Deliver") ── */}
-      <section className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
         <div className="mb-12">
           <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-3">
             CORE CAPABILITIES
@@ -188,10 +189,10 @@ export default function WorkCategoryPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Strategic Framework Process ── */}
-      <section className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
         <div className="bg-white p-8 md:p-14 rounded-3xl border border-[#111111]/10 shadow-md">
           <div className="mb-10">
             <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-3">
@@ -218,10 +219,10 @@ export default function WorkCategoryPage() {
             ))}
           </div>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Deep-Dive Case Studies & Featured Campaigns ── */}
-      <section className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-6 md:px-12 pb-24">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-[#111111]/10 pb-6">
           <div>
             <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-2">
@@ -296,10 +297,10 @@ export default function WorkCategoryPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Client Roster ── */}
-      <section className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-24">
         <div className="bg-white p-6 sm:p-8 md:p-12 rounded-3xl border border-[#111111]/10 text-center shadow-sm">
           <p className="text-[0.68rem] font-bold tracking-[0.22em] uppercase text-[#111111]/60 mb-6">
             BRANDS PARTNERED WITH OUR {category.title.toUpperCase()} TEAM
@@ -315,10 +316,10 @@ export default function WorkCategoryPage() {
             ))}
           </div>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* ── Bottom Section: Next Discipline & CTA ── */}
-      <section className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12">
+      <FadeSlideSection className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12">
         <div className="grid md:grid-cols-2 gap-6 items-stretch">
           <Link
             to={`/work/${category.nextCategory.id}`}
@@ -358,7 +359,7 @@ export default function WorkCategoryPage() {
             </div>
           </div>
         </div>
-      </section>
+      </FadeSlideSection>
     </div>
   );
 }

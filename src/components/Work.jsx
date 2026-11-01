@@ -128,7 +128,14 @@ export default function Work({ hideHeader = false }) {
   const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
 
   return (
-    <section id="work" className="py-20 md:py-24 bg-white relative z-10">
+    <motion.section
+      id="work"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+      className="py-20 md:py-24 bg-white relative z-10"
+    >
       <div className="max-w-[1360px] mx-auto px-6 md:px-12">
         {!hideHeader && (
           <motion.div
@@ -161,6 +168,6 @@ export default function Work({ hideHeader = false }) {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

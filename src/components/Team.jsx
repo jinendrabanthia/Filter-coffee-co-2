@@ -85,7 +85,14 @@ export default function Team() {
   const isInView = useInView(gridRef, { once: true, margin: '-60px 0px' });
 
   return (
-    <section id="team" className="py-20 md:py-28 bg-[#F7F5EF] relative z-10 border-b border-[#111111]/10">
+    <motion.section
+      id="team"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+      className="py-20 md:py-28 bg-[#F7F5EF] relative z-10 border-b border-[#111111]/10"
+    >
       <div className="max-w-[1360px] mx-auto px-6 md:px-12">
         {/* Team Intro */}
         <div className="text-center mb-16">
@@ -135,6 +142,6 @@ export default function Team() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
