@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import FadeSlideSection from '../components/FadeSlideSection';
 
 const projects = {
   'brand-story': {
@@ -134,7 +135,7 @@ export default function ProjectPage() {
       </div>
 
       {/* Body */}
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-20">
+      <FadeSlideSection className="max-w-[1200px] mx-auto px-6 md:px-12 py-20">
         {/* Overview + Services */}
         <div className="grid md:grid-cols-[1fr_320px] gap-12 md:gap-16 mb-20">
           <motion.div
@@ -233,7 +234,7 @@ export default function ProjectPage() {
             START A PROJECT
           </Link>
         </motion.div>
-      </div>
+      </FadeSlideSection>
     </div>
   );
 }

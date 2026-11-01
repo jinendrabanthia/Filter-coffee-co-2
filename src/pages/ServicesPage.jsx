@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import ScrollFloat from '../components/ScrollFloat';
 import ScrollReveal from '../components/ScrollReveal';
 import Services from '../components/Services';
+import FadeSlideSection from '../components/FadeSlideSection';
 
 export default function ServicesPage() {
   return (
     <div className="bg-[#BFE9FF] min-h-screen text-[#111111]">
       {/* Page Hero */}
-      <section className="relative pt-[140px] pb-[70px] overflow-hidden bg-[#BFE9FF] border-b border-[#111111]/10">
+      <FadeSlideSection className="relative pt-[140px] pb-[70px] overflow-hidden bg-[#BFE9FF] border-b border-[#111111]/10">
         <div className="max-w-[1360px] mx-auto px-6 md:px-12 relative z-10">
           <div className="max-w-4xl">
             <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#2563EB] mb-4">
@@ -31,13 +32,13 @@ export default function ServicesPage() {
             </ScrollReveal>
           </div>
         </div>
-      </section>
+      </FadeSlideSection>
 
       {/* Main Services List */}
       <Services hideHeader />
 
       {/* Closing Transition Strip */}
-      <section className="bg-[#111111] py-16 px-6 md:px-12 text-center text-white border-t border-[#111111] relative z-10">
+      <FadeSlideSection className="bg-[#111111] py-16 px-6 md:px-12 text-center text-white border-t border-[#111111] relative z-10">
         <div className="max-w-2xl mx-auto">
           <p className="text-[#BFE9FF] text-[0.7rem] font-bold tracking-[0.22em] uppercase mb-4">
             THE PEOPLE BEHIND IT
@@ -53,7 +54,7 @@ export default function ServicesPage() {
             <span className="text-sm">→</span>
           </Link>
         </div>
-      </section>
+      </FadeSlideSection>
     </div>
   );
 }

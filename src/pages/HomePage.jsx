@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Hero from '../components/Hero';
 import Logo from '../components/Logo';
 import LogoLoader from '../components/LogoLoader';
+import FadeSlideSection from '../components/FadeSlideSection';
 
 const FEATURED_CLIENTS = [
   { name: "P&G", logo: "/images/clients/pg.png" },
@@ -73,14 +74,8 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: heroStage === 'opening' ? 4.8 : 0 }}
           >
             {/* 2. TRANSITION STRIP */}
-            <section className="bg-[#111111] py-14 px-6 md:px-12 text-center relative z-10 border-y border-[#111111]">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="max-w-3xl mx-auto"
-              >
+            <FadeSlideSection className="bg-[#111111] py-14 px-6 md:px-12 text-center relative z-10 border-y border-[#111111]">
+              <div className="max-w-3xl mx-auto">
                 <p className="text-[#BFE9FF] text-[0.7rem] font-bold tracking-[0.24em] uppercase mb-3">
                   WHAT COMES NEXT
                 </p>
@@ -94,11 +89,11 @@ export default function HomePage() {
                   <span>EXPLORE OUR WORK</span>
                   <span className="text-sm">↗</span>
                 </Link>
-              </motion.div>
-            </section>
+              </div>
+            </FadeSlideSection>
 
             {/* 3. CLIENT SHOWCASE */}
-            <section className="bg-[#F7F5EF] py-16 sm:py-20 px-4 sm:px-6 md:px-12 border-b border-[#111111]/10">
+            <FadeSlideSection className="bg-[#F7F5EF] py-16 sm:py-20 px-4 sm:px-6 md:px-12 border-b border-[#111111]/10">
               <div className="max-w-[1360px] mx-auto text-center">
                 <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#111111]/60 mb-8 sm:mb-12">
                   GOOD COMPANY. BRANDS WE'VE WORKED WITH.
@@ -139,10 +134,10 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
-            </section>
+            </FadeSlideSection>
 
             {/* 4. CONCISE SERVICES INTRO */}
-            <section className="bg-[#BFE9FF] py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#111111]/10">
+            <FadeSlideSection className="bg-[#BFE9FF] py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#111111]/10">
               <div className="max-w-[1360px] mx-auto">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8 mb-12 sm:mb-16">
                   <div>
@@ -188,10 +183,10 @@ export default function HomePage() {
                   ))}
                 </div>
               </div>
-            </section>
+            </FadeSlideSection>
 
             {/* 5. SHORT ABOUT INTRO */}
-            <section className="bg-[#F7F5EF] py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#111111]/10">
+            <FadeSlideSection className="bg-[#F7F5EF] py-16 sm:py-24 px-4 sm:px-6 md:px-12 border-b border-[#111111]/10">
               <div className="max-w-[1360px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
                 <div className="md:col-span-8">
                   <p className="text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#111111]/60 mb-3 sm:mb-4">
@@ -225,17 +220,11 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </section>
+            </FadeSlideSection>
 
             {/* 6. CONTACT CTA — pure black text on electric blue */}
-            <section className="bg-[#2563EB] py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-center text-[#111111] relative z-10">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="max-w-3xl mx-auto"
-              >
+            <FadeSlideSection className="bg-[#2563EB] py-16 sm:py-24 px-4 sm:px-6 md:px-12 text-center text-[#111111] relative z-10">
+              <div className="max-w-3xl mx-auto">
                 <p className="text-[#111111] text-[0.72rem] font-black tracking-[0.24em] uppercase mb-3 sm:mb-4">
                   START A CONVERSATION
                 </p>
@@ -255,8 +244,8 @@ export default function HomePage() {
                   <span>GET IN TOUCH</span>
                   <span className="text-sm">↗</span>
                 </Link>
-              </motion.div>
-            </section>
+              </div>
+            </FadeSlideSection>
           </motion.div>
         )}
       </AnimatePresence>

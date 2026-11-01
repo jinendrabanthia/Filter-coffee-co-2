@@ -113,7 +113,14 @@ export default function Services({ hideHeader = false }) {
   const [ref, inView] = useInView({ threshold: 0.05, triggerOnce: true });
 
   return (
-    <section id="services" className="py-16 md:py-24 bg-[#BFE9FF] relative z-10">
+    <motion.section
+      id="services"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+      className="py-16 md:py-24 bg-[#BFE9FF] relative z-10"
+    >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-12">
         {!hideHeader && (
           <motion.div
@@ -157,6 +164,6 @@ export default function Services({ hideHeader = false }) {
           </Link>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
