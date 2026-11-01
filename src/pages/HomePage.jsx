@@ -3,6 +3,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Hero from '../components/Hero';
 import Logo from '../components/Logo';
+import LogoLoader from '../components/LogoLoader';
 
 const FEATURED_CLIENTS = [
   { name: "P&G", logo: "/images/clients/pg.png" },
@@ -35,8 +36,8 @@ export default function HomePage() {
   const outletCtx = useOutletContext();
   const setIsHomeIntro = outletCtx?.setIsHomeIntro;
 
-  // Default to 'open' so all pages and full homepage content are immediately accessible without intro delay
-  const [heroStage, setHeroStage] = useState('open');
+  // Always start with 'intro' (the closed box) on load or refresh
+  const [heroStage, setHeroStage] = useState('intro');
 
   useEffect(() => {
     const handleReplayIntro = () => {
@@ -56,6 +57,9 @@ export default function HomePage() {
 
   return (
     <main className="bg-[#BFE9FF] overflow-hidden">
+      {/* 0. 6-SECOND MOBILE-FIRST LOGO LOADER */}
+      <LogoLoader />
+
       {/* 1. HERO (Interactive Box Intro -> Continuous Morphing Opening -> Stage Three Hero) */}
       <Hero onStageChange={handleStageChange} />
 

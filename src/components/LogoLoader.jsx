@@ -25,39 +25,16 @@ import { motion, AnimatePresence } from 'framer-motion';
  *    - Shown once per browser session via sessionStorage.
  *    - Immediate full logo reveal for prefers-reduced-motion.
  */
-// Module-scoped session flag:
-// - Automatically resets to false on hard refresh (Ctrl+F5), soft refresh, or fresh visit
-// - Stays true during internal React Router client navigation between pages
-let hasLoadedInSession = false;
-
-export default function LogoLoader({ onComplete, forceShow = false }) {
-  // Synchronous initialization so the pure white overlay renders on frame 0 with ZERO flicker
-  const [shouldRender, setShouldRender] = useState(() => {
-    if (forceShow) return true;
-    return !hasLoadedInSession;
-  });
+export default function LogoLoader({ onComplete }) {
+  // Always render initially so the pure white overlay renders with ZERO flicker
+  const [shouldRender, setShouldRender] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Clear legacy sessionStorage flag if any
-    try {
-      sessionStorage.removeItem('fcc_loader_seen');
-    } catch (e) {}
-
-    // Check prefers-reduced-motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
-
-    // If already loaded in this SPA session and not forced, complete immediately
-    if (hasLoadedInSession && !forceShow) {
-      onComplete?.();
-      return;
-    }
-
-    // Mark as loaded for subsequent client-side route navigations
-    hasLoadedInSession = true;
-  }, [forceShow, onComplete]);
+  }, []);
 
   useEffect(() => {
     if (!shouldRender) return;

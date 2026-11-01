@@ -6,11 +6,12 @@ import AnimatedBackground from '../components/AnimatedBackground';
 
 export default function Layout() {
   const { pathname } = useLocation();
-  const [isHomeIntro, setIsHomeIntro] = useState(false);
+  // True on visit to '/' so footer stays hidden during closed box intro
+  const [isHomeIntro, setIsHomeIntro] = useState(pathname === '/');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    setIsHomeIntro(false);
+    setIsHomeIntro(pathname === '/');
   }, [pathname]);
 
   useEffect(() => {

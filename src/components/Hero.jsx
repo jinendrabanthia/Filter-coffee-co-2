@@ -31,8 +31,8 @@ import InteractiveBox from './InteractiveBox';
  * - Subtly allows replaying the intro via a "↺ REPLAY INTRO" trigger.
  */
 export default function Hero({ onStageChange }) {
-  // Default to 'open' so homepage is immediately visible and browsable
-  const [stage, setStage] = useState('open');
+  // Always initialize as 'intro' (closed cardboard box) on page load or refresh
+  const [stage, setStage] = useState('intro');
   const [isOpening, setIsOpening] = useState(false);
 
   useEffect(() => {
